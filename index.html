@@ -373,6 +373,9 @@
         .hakka-box { background: var(--bgc_1); height: 690px; margin: 30px auto 10px; overflow: hidden; position: relative; width: 580px; border-radius: 10px; }
         .hakka-box br { display: none!important; }
 
+        .hakka-top-img { background: var(--grupo); height: 200px; width: 580px; opacity: .7; }
+        .hakka-top-img img { height: 100%; filter: grayscale(100%) contrast(120%); mix-blend-mode: multiply; object-fit: cover; width: 100%; }
+
         .hakka-topbar { margin: 60px 40px; }
         .hakka-topbar .topbar-img { margin-top: -3px; opacity: .7; border: 1px solid var(--grupo); border-radius: 100%; float: left; height: 80px; margin-right: 20px; width: 80px; background: var(--bgc_1); padding: 18px;}
         .hakka-topbar .topbar-img img { border-radius: 100%; filter: grayscale(100%) contrast(120%); height: 80px; width: 80px; transition: 0.5s; }
@@ -435,28 +438,6 @@
 
         .hakka-box ::selection { background: var(--grupo); color: #000; } 
         .hakka-box ::-moz-selection { background: var(--grupo); color: #000; }
-
-	        body { 
-        background: #000; 
-        position: relative;
-    }
-
-    body::before {
-        --size: 45px;
-        --line: color-mix(in hsl, canvasText, transparent 70%);
-        content: '';
-        height: 100vh;
-        width: 100vw;
-        position: fixed;
-        background: 
-            linear-gradient(90deg, var(--line) 1px, transparent 1px var(--size)) 50% 50%/var(--size) var(--size),
-            linear-gradient(var(--line) 1px, transparent 1px var(--size)) 50% 50%/var(--size) var(--size);
-        mask: linear-gradient(-20deg, transparent 50%, white);
-        top: 0;
-        transform-style: flat;
-        pointer-events: none;
-        z-index: -1;
-    }
     </style>
 </head>
 <body>
