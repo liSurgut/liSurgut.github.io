@@ -438,6 +438,28 @@
 
         .hakka-box ::selection { background: var(--grupo); color: #000; } 
         .hakka-box ::-moz-selection { background: var(--grupo); color: #000; }
+
+	        body { 
+        background: #000; 
+        position: relative;
+    }
+
+    body::before {
+        --size: 45px;
+        --line: color-mix(in hsl, canvasText, transparent 70%);
+        content: '';
+        height: 100vh;
+        width: 100vw;
+        position: fixed;
+        background: 
+            linear-gradient(90deg, var(--line) 1px, transparent 1px var(--size)) 50% 50%/var(--size) var(--size),
+            linear-gradient(var(--line) 1px, transparent 1px var(--size)) 50% 50%/var(--size) var(--size);
+        mask: linear-gradient(-20deg, transparent 50%, white);
+        top: 0;
+        transform-style: flat;
+        pointer-events: none;
+        z-index: -1;
+    }
     </style>
 </head>
 <body>
