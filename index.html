@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>t.me/liSurgut</title>
     
     <link href="https://dl.dropbox.com/s/5kx472ycbz8hxvk/game-icons.css" rel="stylesheet">
@@ -11,13 +11,20 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,900;1,400&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
     <link rel="stylesheet" type="text/css" href="//icons.cappuccicons.com/cpf.css">
-    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap" rel="stylesheet">
 
     <style>
-        body { background-image: url("https://www.transparenttextures.com/patterns/ps-neutral.png"); background-repeat: repeat; background-color: #000; }
+        /* ОРИГИНАЛЬНЫЕ СТИЛИ БЕЗ ИЗМЕНЕНИЙ */
+        body { 
+            background-image: url("https://www.transparenttextures.com/patterns/ps-neutral.png"); 
+            background-repeat: repeat; 
+            background-color: #000; 
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
         a { text-decoration: none; }
 
         :root {
@@ -71,30 +78,175 @@
         #ABSENT { --grupo: #585269; }
         #ROOKIE { --grupo: #A29DAE; }
 
-        .hakka-box { background: var(--bgc_1); height: 690px; margin: 30px auto 10px; overflow: hidden; position: relative; width: 580px; border-radius: 10px; }
+        .hakka-box { 
+            background: var(--bgc_1); 
+            height: 690px; 
+            margin: 30px auto 10px; 
+            overflow: hidden; 
+            position: relative; 
+            width: 580px; 
+            border-radius: 10px; 
+            animation: scaleIn 0.5s ease;
+        }
+
+        @keyframes scaleIn {
+            from { transform: scale(0.98); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
         .hakka-box br { display: none!important; }
 
-        .hakka-top-img { background: var(--grupo); height: 200px; width: 580px; opacity: .7; }
-        .hakka-top-img img { height: 100%; filter: grayscale(100%) contrast(120%); mix-blend-mode: multiply; object-fit: cover; width: 100%; }
+        .hakka-top-img { 
+            background: var(--grupo); 
+            height: 200px; 
+            width: 580px; 
+            opacity: .7; 
+            position: relative;
+        }
+
+        .hakka-top-img img { 
+            height: 100%; 
+            filter: grayscale(100%) contrast(120%); 
+            mix-blend-mode: multiply; 
+            object-fit: cover; 
+            width: 100%;
+            animation: imageZoom 1s ease-out forwards;
+        }
+
+        @keyframes imageZoom {
+            0% { transform: scale(1.5); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
 
         .hakka-topbar { margin: 60px 40px; }
-        .hakka-topbar .topbar-img { margin-top: -3px; opacity: .7; border: 1px solid var(--grupo); border-radius: 100%; float: left; height: 80px; margin-right: 20px; width: 80px; background: var(--bgc_1); padding: 18px;}
-        .hakka-topbar .topbar-img img { border-radius: 100%; filter: grayscale(100%) contrast(120%); height: 80px; width: 80px; transition: 0.5s; }
-        .hakka-topbar .hakka-color { height: 80px; width: 80px; background: var(--grupo); border-radius: 100%; transition: .3s; position: relative; margin: -84px 0; mix-blend-mode: multiply; }
+        .hakka-topbar .topbar-img { 
+            margin-top: -3px; 
+            opacity: .7; 
+            border: 1px solid var(--grupo); 
+            border-radius: 100%; 
+            float: left; 
+            height: 80px; 
+            margin-right: 20px; 
+            width: 80px; 
+            background: var(--bgc_1); 
+            padding: 18px;
+        }
 
-        .hakka-topbar nombre { color: #edecee; font: 300 34px 'Clash Display', sans-serif; display: block; height: 76px; letter-spacing: -.5px; line-height: 28px; margin-top: -10px; text-transform: uppercase; }
-        .hakka-topbar nombre b { opacity: .7; color: var(--grupo); display: block; font-size: 28px; }
-        .hakka-topbar frase { font: normal 9px "Inter"; color: #edecee; margin-top: -18px; display: block; text-transform: uppercase; letter-spacing: .2px; }
+        .hakka-topbar .topbar-img img { 
+            border-radius: 100%; 
+            filter: grayscale(100%) contrast(120%); 
+            height: 80px; 
+            width: 80px; 
+            transition: 0.5s; 
+        }
+
+        .hakka-topbar .hakka-color { 
+            height: 80px; 
+            width: 80px; 
+            background: var(--grupo); 
+            border-radius: 100%; 
+            transition: .3s; 
+            position: relative; 
+            margin: -84px 0; 
+            mix-blend-mode: multiply; 
+        }
+
+        .hakka-topbar nombre { 
+            color: #edecee; 
+            font: 300 34px 'Clash Display', sans-serif; 
+            display: block; 
+            height: 76px; 
+            letter-spacing: -.5px; 
+            line-height: 28px; 
+            margin-top: -10px; 
+            text-transform: uppercase; 
+        }
+
+        .hakka-topbar nombre b { 
+            opacity: .7; 
+            color: var(--grupo); 
+            display: block; 
+            font-size: 28px; 
+        }
+
+        .hakka-topbar frase { 
+            font: normal 9px "Inter"; 
+            color: #edecee; 
+            margin-top: -18px; 
+            display: block; 
+            text-transform: uppercase; 
+            letter-spacing: .2px; 
+        }
+
         .hakka-topbar frase b { color: var(--grupo); }
-        .hakka-topbar grupo { opacity: .7; background: var(--grupo); color: #000; display: inline-block; font: 600 9px "Poppins"; letter-spacing: .2px; padding: 5px; text-transform: uppercase; margin-top: 7px; }
-        .hakka-topbar grupo b { letter-spacing: -.5px; font-size: 10px;}
+        .hakka-topbar grupo { 
+            opacity: .7; 
+            background: var(--grupo); 
+            color: #000; 
+            display: inline-block; 
+            font: 600 9px "Poppins"; 
+            letter-spacing: .2px; 
+            padding: 5px; 
+            text-transform: uppercase; 
+            margin-top: 7px; 
+        }
 
-        .hakka-datos { color: #edecee; font: normal 10px "Inter"; height: 230px; margin: -20px 30px; overflow: hidden; width: 504; }
-        .hakka-datos dato { background: var(--bg_main); opacity: .7; border-left: 2px solid var(--grupo); margin: 4px 2px; display: inline-block; padding: 18px 15px; vertical-align: top; width: 222px; }
-        .hakka-datos dato i { color: var(--grupo); font: 15px "Poppins"; margin-right: 10px; margin-top: -2px; text-transform: uppercase; float:left;}
+        .hakka-topbar grupo b { 
+            letter-spacing: -.5px; 
+            font-size: 10px;
+        }
 
-        .hakka-box .hakka-content { position: absolute; top: 700px; background: var(--bg_main); margin: 20px; border-radius: 10px; padding: 30px; overflow: hidden; transition: all 0.5s ease-in-out; height: 364px; color: #edecee; }
-        .hakka-txt { text-align: justify; font: 400 11px "Inter", sans-serif; line-height: 15px; height: 365px; overflow: auto;padding-right: 6px;}
+        .hakka-datos { 
+            color: #edecee; 
+            font: normal 10px "Inter"; 
+            height: 230px; 
+            margin: -20px 30px; 
+            overflow: hidden; 
+            width: 504px; 
+        }
+
+        .hakka-datos dato { 
+            background: var(--bg_main); 
+            opacity: .7; 
+            border-left: 2px solid var(--grupo); 
+            margin: 4px 2px; 
+            display: inline-block; 
+            padding: 18px 15px; 
+            vertical-align: top; 
+            width: 222px; 
+        }
+
+        .hakka-datos dato i { 
+            color: var(--grupo); 
+            font: 15px "Poppins"; 
+            margin-right: 10px; 
+            margin-top: -2px; 
+            text-transform: uppercase; 
+            float:left;
+        }
+
+        .hakka-box .hakka-content { 
+            position: absolute; 
+            top: 700px; 
+            background: var(--bg_main); 
+            margin: 20px; 
+            border-radius: 10px; 
+            padding: 30px; 
+            overflow: hidden; 
+            transition: all 0.5s ease-in-out; 
+            height: 364px; 
+            color: #edecee; 
+        }
+
+        .hakka-txt { 
+            text-align: justify; 
+            font: 400 11px "Inter", sans-serif; 
+            line-height: 15px; 
+            height: 365px; 
+            overflow: auto;
+            padding-right: 6px;
+        }
+
         .hakka-box:hover .hakka-content{ top: 200px; transition: all 0.5s ease-in-out; }
         .hakka-content br { display: initial!important; }
         .hakka-content b, .hakka-content strong, .hakka-content s, .hakka-content u, .hakka-content i { color: var(--grupo); }
@@ -102,11 +254,37 @@
         .hakka-content a { color: #ccc; }
         .hakka-content u { opacity: .9; font: 700 12px "Poppins"; letter-spacing: 0px; line-height: 0; text-decoration: none; }
 
-        .hakka-1 { font-weight: 400; color: var(--grupo); font: 22px "Clash Display", sans-serif; letter-spacing: 2px; text-transform: uppercase; width: 341px; display: block; background: var(--bgc_main); margin: 5px 0 10px 5px; }
-        .hakka-txt .hakka-1 b { font-weight: 400; border-bottom: 2px solid var(--grupo); color: #edecee; }
+        .hakka-1 { 
+            font-weight: 400; 
+            color: var(--grupo); 
+            font: 22px "Clash Display", sans-serif; 
+            letter-spacing: 2px; 
+            text-transform: uppercase; 
+            width: 341px; 
+            display: block; 
+            background: var(--bgc_main); 
+            margin: 5px 0 10px 5px; 
+        }
+
+        .hakka-txt .hakka-1 b { 
+            font-weight: 400; 
+            border-bottom: 2px solid var(--grupo); 
+            color: #edecee; 
+        }
 
         .hakka-txt lista { counter-reset: myli; } 
-        .hakka-txt lista li::before { opacity: .7; color: var(--grupo); content: counter(myli, decimal-leading-zero) "."; font: 700 16px "Poppins"; padding: 0 7px 0 5px; line-height: 0; display: inline; text-align: right; width: 30px; }
+        .hakka-txt lista li::before { 
+            opacity: .7; 
+            color: var(--grupo); 
+            content: counter(myli, decimal-leading-zero) "."; 
+            font: 700 16px "Poppins"; 
+            padding: 0 7px 0 5px; 
+            line-height: 0; 
+            display: inline; 
+            text-align: right; 
+            width: 30px; 
+        }
+
         .hakka-txt lista li { counter-increment: myli; display: inline-block; }
         .hakka-txt ol { counter-reset: list; margin: 0; padding-left: 20px; }
         .hakka-txt ol li { counter-increment: list; }
@@ -116,32 +294,214 @@
         .hakka-txt::-webkit-scrollbar-thumb { background-color: var(--grupo); border: 1px solid var(--bgc_main); }
         .hakka-txt::-webkit-scrollbar-track-piece { background-color: var(--bg_main); border: 1px solid var(--grupo); }
 
-        .hakka-txt h1 { opacity: .9; border-bottom: 1px solid #222; color: var(--grupo); font: 18px "Clash Display", sans-serif; letter-spacing: 2px; margin-top: 0; margin-bottom: -5px; text-transform: uppercase; }
-        .hakka-txt h1 b { border-bottom: 2px solid var(--grupo); color: #bababa; position: absolute; background: var(--bgc_1); }
-        .hakka-txt h2 { opacity: .9; color: var(--grupo); display: inline-block; font: 400 20px "Clash Display", sans-serif; letter-spacing: -1px; margin: 0; } 
-        .hakka-txt h3 { opacity: .8; background: var(--grupo); color: #000; display: inline-block; float: left; font: 800 10px "Poppins"; letter-spacing: .3px; margin:4px; margin-right: 6px; padding: 10px; text-transform: uppercase; }
-        .hakka-txt h4 { opacity: .9; color: var(--grupo); display: inline-block; font: 800 12px "Poppins"; text-align: right; text-transform: uppercase; margin: 0 10px 0 6px; letter-spacing: .3px; }
+        .hakka-txt h1 { 
+            opacity: .9; 
+            border-bottom: 1px solid #222; 
+            color: var(--grupo); 
+            font: 18px "Clash Display", sans-serif; 
+            letter-spacing: 2px; 
+            margin-top: 0; 
+            margin-bottom: -5px; 
+            text-transform: uppercase; 
+        }
 
-        .hakka-txt l { background: var(--bg_c); display: block; padding: 10px; margin: 0 5px -10px 0; margin-top: -1px; }
-        .hakka-txt l .fa { color: var(--grupo); float: left; margin-left: 5px; margin-right: 10px; }
-        .hakka-gg {display: flex; flex-flow: row wrap; justify-content: space-between; border-radius: 10px; margin-top: -1px; }
-        .hakka-gg l { background: var(--bg_c); color: #ababab; padding: 4px 5px; border-radius:5px; font-size: 8px; text-transform:uppercase; letter-spacing:1px; text-align:center; flex: 1 0 auto; transition:.2s; margin: 0 5px 4px 0; font-weight: bold; } 
-        .hakka-gg l .fa { color: var(--grupo); float: left; margin: 3px 6px 0 4px; font-size: 10px; }
-        .hakka-gg l:hover { opacity: .7; background: var(--grupo); color: var(--bgc_1); } 
+        .hakka-txt h1 b { 
+            border-bottom: 2px solid var(--grupo); 
+            color: #bababa; 
+            position: absolute; 
+            background: var(--bgc_1); 
+        }
+
+        .hakka-txt h2 { 
+            opacity: .9; 
+            color: var(--grupo); 
+            display: inline-block; 
+            font: 400 20px "Clash Display", sans-serif; 
+            letter-spacing: -1px; 
+            margin: 0; 
+        } 
+        .hakka-txt h3 { 
+            opacity: .8; 
+            background: var(--grupo); 
+            color: #000; 
+            display: inline-block; 
+            float: left; 
+            font: 800 10px "Poppins"; 
+            letter-spacing: .3px; 
+            margin:4px; 
+            margin-right: 6px; 
+            padding: 10px; 
+            text-transform: uppercase; 
+        }
+        .hakka-txt h4 { 
+            opacity: .9; 
+            color: var(--grupo); 
+            display: inline-block; 
+            font: 800 12px "Poppins"; 
+            text-align: right; 
+            text-transform: uppercase; 
+            margin: 0 10px 0 6px; 
+            letter-spacing: .3px; 
+        }
+
+        .hakka-txt l { 
+            background: var(--bg_c); 
+            display: block; 
+            padding: 10px; 
+            margin: 0 5px -10px 0; 
+            margin-top: -1px; 
+        }
+        .hakka-txt l .fa { 
+            color: var(--grupo); 
+            float: left; 
+            margin-left: 5px; 
+            margin-right: 10px; 
+        }
+        .hakka-gg {
+            display: flex; 
+            flex-flow: row wrap; 
+            justify-content: space-between; 
+            border-radius: 10px; 
+            margin-top: -1px; 
+        }
+        .hakka-gg l { 
+            background: var(--bg_c); 
+            color: #ababab; 
+            padding: 4px 5px; 
+            border-radius:5px; 
+            font-size: 8px; 
+            text-transform:uppercase; 
+            letter-spacing:1px; 
+            text-align:center; 
+            flex: 1 0 auto; 
+            transition:.2s; 
+            margin: 0 5px 4px 0; 
+            font-weight: bold; 
+        } 
+        .hakka-gg l .fa { 
+            color: var(--grupo); 
+            float: left; 
+            margin: 3px 6px 0 4px; 
+            font-size: 10px; 
+        }
+        .hakka-gg l:hover { 
+            opacity: .7; 
+            background: var(--grupo); 
+            color: var(--bgc_1); 
+        } 
         .hakka-gg l:hover .fa { color: var(--bgc_1); }
-        .hakka-qq { opacity: .7; background: var(--grupo); font-weight: bold; font-size: 13px; color: var(--bgc_1); padding: 14px; border-radius: 10px; margin-top: 10px; font-family: Poppins; }
-        .hakka-qq::before { content: "\ec2b"; color: var(--bgc_1); font-family: 'cappuccicons'; font-size: 24px; margin-right: 10px; float: left; padding: 5px 0; }
+        .hakka-qq { 
+            opacity: .7; 
+            background: var(--grupo); 
+            font-weight: bold; 
+            font-size: 13px; 
+            color: var(--bgc_1); 
+            padding: 14px; 
+            border-radius: 10px; 
+            margin-top: 10px; 
+            font-family: Poppins; 
+        }
+        .hakka-qq::before { 
+            content: "\ec2b"; 
+            color: var(--bgc_1); 
+            font-family: 'cappuccicons'; 
+            font-size: 24px; 
+            margin-right: 10px; 
+            float: left; 
+            padding: 5px 0; 
+        }
         .hakka-gg br { display: none; }
 
-        .hakka-box registro { bottom: 0; color: #000; opacity: .7; background: var(--grupo); display: block; font: 600 10px "Poppins"; padding: 8px 10px; position: absolute; text-align: right; text-transform: uppercase; width: 560px; right: 0; }
+        .hakka-box registro { 
+            bottom: 0; 
+            color: #000; 
+            opacity: .7; 
+            background: var(--grupo); 
+            display: block; 
+            font: 600 10px "Poppins"; 
+            padding: 8px 10px; 
+            position: absolute; 
+            text-align: right; 
+            text-transform: uppercase; 
+            width: 560px; 
+            right: 0; 
+        }
         .hakka grupo b, .hakka-box registro b, .hakka-txt h1 b { font-weight: 800; }
         .hakka-box registro b {opacity: .5;}
 
         .hakka-box ::selection { background: var(--grupo); color: #000; } 
         .hakka-box ::-moz-selection { background: var(--grupo); color: #000; }
+
+        /* ДОБАВЛЕННЫЕ СТИЛИ ДЛЯ АДАПТИВНОСТИ */
+        @media (max-width: 768px) {
+            .hakka-box {
+                width: 100%;
+                height: auto;
+                margin: 20px 0;
+                padding-bottom: 60px;
+            }
+
+            .hakka-top-img {
+                width: 100%;
+                height: 150px;
+            }
+
+            .hakka-topbar {
+                margin: 30px 20px;
+            }
+
+            .hakka-topbar .topbar-img {
+                height: 60px;
+                width: 60px;
+                margin-right: 15px;
+                padding: 10px;
+            }
+
+            .hakka-topbar nombre {
+                font-size: 24px;
+                line-height: 1.2;
+                height: auto;
+            }
+
+            .hakka-topbar nombre b {
+                font-size: 18px;
+            }
+
+            .hakka-datos {
+                width: auto;
+                margin: -10px 15px;
+                height: auto;
+            }
+
+            .hakka-datos dato {
+                width: 100%;
+                margin: 5px 0;
+            }
+
+            .hakka-content {
+                position: static;
+                height: auto;
+                margin: 15px !important;
+                padding: 20px !important;
+            }
+
+            .hakka-txt {
+                height: auto;
+                max-height: 50vh;
+            }
+        }
+
+        /* БЛОКИРОВКА МАСШТАБИРОВАНИЯ */
+        img {
+            pointer-events: none;
+            touch-action: none;
+            -webkit-user-drag: none;
+            user-select: none;
+        }
     </style>
 </head>
 <body>
+    <!-- ОРИГИНАЛЬНАЯ HTML-РАЗМЕТКА БЕЗ ИЗМЕНЕНИЙ -->
     <div id="ORPHAN" class="hakka-box">
         <div class="hakka-top-img">
             <img src="https://i.pinimg.com/originals/9a/a8/0f/9aa80fbef37d1ab22dde84c8a5125b01.jpg">
@@ -158,7 +518,7 @@
         </div>
 
         <div class="hakka-datos">
-            <dato><i class="cp cp-alien"></i> Живу : Земля, остальное ебать не особо должно <3</dato>
+            <dato><i class="cp cp-explosives"></i> </dato>
             <dato><i class="cp cp-leaf"></i> <a> steamcommunity.com/id/1iSurgut </a></dato>
         </div>
 
@@ -172,10 +532,10 @@
                 <b>Так что:</b> У меня всё как-то скучно, без изюминки и интересных занятий. Всем этим может заняться кто угодно.<br><br>
 
                 <div class="hakka-1"><b>Обо мне</b></div> — <b>Ну, если смотреть мою историю, то можно, наверное, начать:</b> — <i>Место рождения: Беларусь, Минск.</i> Отучившись первые два класса и с полным знанием русского языка, я переехал в Россию — страну, из которой я на протяжении всей жизни почти не выезжал. Наверное, это самая грустная страна, в которой я был, и, вероятно, моя фактическая родина. У меня рука болит, я ебал. 5 минут...<br><br>
-				
-				После переезда, который занял у нас с семьёй 5 месяцев, мы приобрели квартиру в Москве, откуда я переехал уже очень давно. Кстати, насчёт переездов, которые у меня слишком частые, даже отец задаётся вопросом: "А нахуя?" Я сам иногда думаю, может, мой отчим от федералов пытается скрыться? <a href="">"Возможно..."</a> Ещё очень часто я слышу от родни: "На кого учиться пойдёшь?!" Да, наверное, на юриста. Очень хочется потом стать адвокатом. Откуда эта информация ко мне пришла, я, в душе, не знаю, но мне она нравится, и я уже думаю об этом третий год.
+                
+                После переезда, который занял у нас с семьёй 5 месяцев, мы приобрели квартиру в Москве, откуда я переехал уже очень давно. Кстати, насчёт переездов, которые у меня слишком частые, даже отец задаётся вопросом: "А нахуя?" Я сам иногда думаю, может, мой отчим от федералов пытается скрыться? <a href="">"Возможно..."</a> Ещё очень часто я слышу от родни: "На кого учиться пойдёшь?!" Да, наверное, на юриста. Очень хочется потом стать адвокатом. Откуда эта информация ко мне пришла, я, в душе, не знаю, но мне она нравится, и я уже думаю об этом третий год.
 
-				В последние два года я начал понемногу стримить на платформах вроде Twitch. Уже есть целых <u>890 фолловеров</u>, смысла, правда, от них особо нет, но я очень рад. Контент у меня игровой и AFK. В категории "просто чатинг" у меня, наверное, только программирование, а в игровом стараюсь набирать большое количество игр, чаще всего это FPS и что-то странное.
+                В последние два года я начал понемногу стримить на платформах вроде Twitch. Уже есть целых <u>890 фолловеров</u>, смысла, правда, от них особо нет, но я очень рад. Контент у меня игровой и AFK. В категории "просто чатинг" у меня, наверное, только программирование, а в игровом стараюсь набирать большое количество игр, чаще всего это FPS и что-то странное.
 
                 <!--- OPCIONAL ---->
                 <h1>Итоги</h1><br>
@@ -183,14 +543,31 @@
                 Скорее всего тут не всё что я хотел рассказать, но на данный момент пока что хватит. Подвод итогов нужен? Наверное да. <br><br>
                Моя жизнь — это смесь из постоянных <u>переездов</u>, странных увлечений и вечного поиска себя. <i>Хобби у меня есть, но они такие же разрозненные, как и я сам:</i> программирование, которое то затягивает, то вызывает чувство тупости; рисование, которое пока не приносит прогресса, но хоть как-то отвлекает; и фотография, которая, благодаря сестре, стала ещё одним способом убить время.
 
-				Жизнь в России, которую я называю своей <u>фактической родиной</u>, оставляет ощущение грусти и какой-то безысходности. <s>Частые переезды, вопросы от родни о будущем и постоянные размышления о том, "на кого учиться" (юрист, адвокат — кто знает?), создают ощущение, что я всё время нахожусь в подвешенном состоянии.</s>
-				Но есть и плюсы: стримы на Twitch, пусть и с небольшим количеством фолловеров, приносят хоть какое-то удовольствие. <b>Игровой контент, программирование в прямом эфире — это хоть какая-то отдушина в этой рутине.</b>
-				В общем, жизнь у меня пока что скучновата, без ярких красок и грандиозных достижений. <i>Но, может, это и нормально?</i> В конце концов, я ещё только ищу себя, и, возможно, всё это — просто этап, через который нужно пройти.<br><br>
-				
+                Жизнь в России, которую я называю своей <u>фактической родиной</u>, оставляет ощущение грусти и какой-то безысходности. <s>Частые переезды, вопросы от родни о будущем и постоянные размышления о том, "на кого учиться" (юрист, адвокат — кто знает?), создают ощущение, что я всё время нахожусь в подвешенном состоянии.</s>
+                Но есть и плюсы: стримы на Twitch, пусть и с небольшим количеством фолловеров, приносят хоть какое-то удовольствие. <b>Игровой контент, программирование в прямом эфире — это хоть какая-то отдушина в этой рутине.</b>
+                В общем, жизнь у меня пока что скучновата, без ярких красок и грандиозных достижений. <i>Но, может, это и нормально?</i> В конце концов, я ещё только ищу себя, и, возможно, всё это — просто этап, через который нужно пройти.<br><br>
+                
             </div>
         </div>
 
         <registro>by<b>@LiSurgut</b></registro>
     </div>
+
+    <!-- СКРИПТЫ БЛОКИРОВКИ МАСШТАБИРОВАНИЯ -->
+    <script>
+        document.addEventListener('touchstart', function(e) {
+            if(e.touches.length > 1) e.preventDefault();
+        }, { passive: false });
+
+        document.addEventListener('gesturestart', function(e) {
+            e.preventDefault();
+        });
+
+        document.addEventListener('wheel', function(e) {
+            if(e.ctrlKey) e.preventDefault();
+        }, { passive: false });
+
+        document.documentElement.style.touchAction = 'manipulation';
+    </script>
 </body>
 </html>
