@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@LiSurgut</title>
     <style>
-   <style>
     @import url('https://unpkg.com/normalize.css') layer(normalize);
 
     @layer normalize, base, demo;
@@ -578,49 +577,83 @@
     </style>
 </head>
 <body>
-    <main>
-        <div class="content">
-            <h1>@LiSurgut</h1>
-            <div class="tags-grid">
-                <div class="no-tags">В данный момент ни один пользователь не добавил ни одного тега!</div>
-            </div>
-            <div>
-                <d>Данные теги были созданы через моего </d>
-                <a href="https://lisurgut.github.io"><soul>бота</soul></a>
-            </div>
-        </div>
+    <main class="content">
+        <h1>@LiSurgut</h1>
+        <form id="tagForm">
+            <input type="text" id="username" placeholder="Ваше имя пользователя" required>
+            <input type="text" id="reaction" placeholder="Реакция" required>
+            <button type="submit">Создать тег</button>
+        </form>
+        <div class="tags-grid"></div>
+        <div class="no-tags">В данный момент ни один пользователь не добавил ни одного тега!</div>
     </main>
 
     <script>
-    document.addEventListener('DOMContentLoaded', async () => {
         const tagsGrid = document.querySelector('.tags-grid');
         const noTagsMsg = document.querySelector('.no-tags');
-        
+        const GITHUB_TOKEN = 'ВАШ_ТОКЕН_ГИТХАБ'; // Замените на ваш токен
+        const REPO_OWNER = 'liSurgut'; // Ваш логин GitHub
+        const REPO_NAME = 'liSurgut.github.io'; // Имя репозитория
+        const TAGS_FILE_PATH = 'tags.json'; // Путь к файлу
+
         async function loadTags() {
             try {
-                const response = await fetch('https://raw.githubusercontent.com/liSurgut/liSurgut.github.io/main/tags.json?t=' + Date.now());
+                const response = await fetch(`https://raw.githubusercontent.com/${REPO_OWNER}/${REPO_NAME}/main/${TAGS_FILE_PATH}?t=${Date.now()}`);
                 const tags = await response.json();
-                
+
                 tagsGrid.innerHTML = '';
                 tags.forEach(tag => {
                     const div = document.createElement('div');
                     div.className = 'tag';
-                    div.innerHTML = `
-                        <em>@${tag.user}</em>
-                        <s>${tag.reaction}</s>
-                    `;
+                    div.innerHTML = `<em>@${tag.user}</em> <s>${tag.reaction}</s>`;
                     tagsGrid.appendChild(div);
                 });
-                
+
                 noTagsMsg.style.display = tags.length ? 'none' : 'block';
             } catch (error) {
                 console.error('Ошибка загрузки тегов:', error);
             }
         }
-        
-        setInterval(loadTags, 5000); // Обновление каждые 5 секунд
+
+        document.getElementById('tagForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const username = document.getElementById('username').value;
+            const reaction = document.getElementById('reaction').value;
+
+            const newTag = { user: username, reaction: reaction };
+
+            try {
+                // Получаем текущее содержимое файла
+                const response = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${TAGS_FILE_PATH}`, {
+                    headers: { 'Authorization': `token ${GITHUB_TOKEN}` }
+                });
+
+                const fileData = await response.json();
+                const currentTags = atob(fileData.content); // Декодируем содержимое файла
+                const updatedTags = [...JSON.parse(currentTags), newTag];
+
+                // Обновляем файл
+                await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${TAGS_FILE_PATH}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': `token ${GITHUB_TOKEN}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        message: 'Добавление нового тега',
+                        content: btoa(JSON.stringify(updatedTags, null, 4)), // Кодируем содержимое
+                        sha: fileData.sha // Отправляем SHA существующего файла для обновления
+                    })
+                });
+
+                document.getElementById('tagForm').reset();
+                loadTags();
+            } catch (error) {
+                console.error('Ошибка при добавлении тега:', error);
+            }
+        });
+
         loadTags();
-    });
     </script>
 </body>
 </html>
