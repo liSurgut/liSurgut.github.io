@@ -3,467 +3,624 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>t.me/liSurgut</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
-    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap" rel="stylesheet">
+    <title>@LiSurgut</title>
     <style>
-        body { 
-            background: #000;
-            position: relative;
-            display: grid;
-            place-items: center;
-            min-height: 100vh;
-            font-family: 'Geist', 'SF Pro Text', 'SF Pro Icons', 'AOS Icons', 'Helvetica Neue', Helvetica, Arial, sans-serif, system-ui;
+   <style>
+    @import url('https://unpkg.com/normalize.css') layer(normalize);
+
+    @layer normalize, base, demo;
+
+    @font-face {
+      font-family: 'Departure Mono';
+      src: url('https://assets.codepen.io/605876/DepartureMono-Regular.woff');
+    }
+
+    @layer demo {
+      .content {
+        padding: 0rem;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 1rem;
+        align-items: flex-start;
+        max-width: 50vw;
+        align-self: flex-end;
+      }
+
+      html {
+        color-scheme: dark;
+      }
+
+      [data-theme='dark'] {
+        color-scheme: light only;
+      }
+      [data-theme='dark'] {
+        color-scheme: dark only;
+      }
+
+      [data-theme='dark'] a:is(:hover, :focus-visible) {
+        background: hsl(0 0% 80%);
+      }
+
+      a:is(:hover, :focus-visible) {
+        background: hsl(0 0% 50%);
+      }
+
+      .images {
+        flex: 1;
+      }
+
+      footer {
+        opacity: 0;
+        padding: 1rem;
+      }
+
+      .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border-width: 0;
+      }
+
+      :root {
+        --color: hsl(0 0% 6%);
+        --bg: hsl(0 0% 98%);
+      }
+
+      h1 {
+        font-family: 'Departure Mono', monospace;
+        font-size: clamp(2rem, 4vw + 1rem, 8rem);
+        line-height: 1;
+        font-weight: 300;
+        margin: 0;
+      }
+
+      a {
+        background-color: transparent !important;
+        text-decoration: none;
+      }
+
+      soul:hover {
+        color: #d36200;
+      }
+
+      soul {
+        font-family: 'Departure Mono', monospace;
+        color: #d36312;
+        text-decoration: none;
+      }
+
+      main {
+        display: flex;
+        flex: 1;
+        align-items: center;
+        padding: 2rem;
+        gap: 4rem;
+        max-width: 100vw;
+      }
+
+      d {
+        font-family: 'Departure Mono', monospace;
+        color: #ffffff;
+      }
+
+      pre {
+        max-width: 100%;
+      }
+
+      p {
+        width: 60ch;
+        max-width: 100%;
+      }
+
+      [data-theme='dark'] {
+        --color: hsl(0 0% 98%);
+        --bg: hsl(0 0% 6%);
+      }
+
+      .theme-toggle {
+        color: #d36312;
+        position: 1;
+        top: 0.1rem;
+        left: 0.1rem;
+        width: 2px;
+        aspect-ratio: 5;
+        padding: 1px;
+        border: 1px;
+        display: grid;
+        place-items: center;
+        border-radius: 12px;
+        background: transparent;
+        transition: background 0.2s;
+        cursor: pointer;
+        z-index: 2;
+      }
+
+      .theme-toggle:is(:hover, :focus-visible) {
+        background: color-mix(in hsl, canvas, canvasText 15%);
+      }
+
+      h1 {
+        color: light-dark(hsl(10 90% 50%), hsl(25 84% 45%));
+      }
+
+      .images {
+        width: 100%;
+        height: 80vh;
+        min-width: 200px;
+      }
+
+      img {
+        max-width: 100%;
+        height: 100%;
+        object-fit: cover;
+        width: 100%;
+        background: hsl(0 0% 50%);
+        border-radius: 1rem;
+        align-self: end;
+        box-shadow: 0 0 2px white;
+      }
+
+      img:nth-of-type(2),
+      [data-theme='dark'] img:nth-of-type(1),
+      [data-theme='light'] img:nth-of-type(2) {
+        display: none;
+      }
+
+      [data-theme='dark'] img:nth-of-type(2) {
+        display: block;
+      }
+
+      .theme-toggle[aria-pressed='true'] svg path:last-of-type {
+        display: block;
+      }
+
+      .theme-toggle svg {
+        color: canvasText;
+        width: 50%;
+      }
+
+      .theme-toggle[aria-pressed='true'] svg path:first-of-type,
+      .theme-toggle svg path:last-of-type {
+        display: none;
+      }
+
+      /* View Transitions */
+      [data-style='wipe']::view-transition-group(root) {
+        animation-duration: 1.25s;
+      }
+
+      [data-style='wipe']::view-transition-new(root) {
+        animation-name: reveal-light;
+      }
+
+      [data-style='wipe']::view-transition-old(root),
+      [data-style='wipe'][data-theme='dark']::view-transition-old(root) {
+        animation: none;
+      }
+
+      [data-style='wipe'][data-theme='dark']::view-transition-new(root) {
+        animation-name: reveal-dark;
+      }
+
+      @keyframes reveal-dark {
+        from {
+          clip-path: polygon(-30% 0, -30% 0, -15% 100%, -10% 115%);
         }
 
-        body::before {
-            --size: 45px;
-            --line: rgba(255, 255, 255);
-            content: '';
-            height: 100vh;
-            width: 100vw;
-            position: fixed;
-            background: 
-                linear-gradient(90deg, var(--line) 1px, transparent 1px var(--size)) 50% 50%/var(--size) var(--size),
-                linear-gradient(var(--line) 1px, transparent 1px var(--size)) 50% 50%/var(--size) var(--size);
-            mask: linear-gradient(-20deg, transparent 50%, white);
-            top: 0;
-            transform-style: flat;
-            pointer-events: none;
-            z-index: -1;
+        to {
+          clip-path: polygon(-30% 0, 130% 0, 115% 100%, -10% 115%);
+        }
+      }
+
+      @keyframes reveal-light {
+        from {
+          clip-path: polygon(130% 0, 130% 0, 115% 100%, 110% 115%);
         }
 
-        :root {
-            --bgc_1: #0f0f12;
-            --bg_main: #161617;
-            --bg_c: #1c1c1f;
-            --bg_c1: #222226;
-            --bg_c2: #2e2e36;
-            --color: #50377d;
-            --ORPHAN: #AB954E;
+        to {
+          clip-path: polygon(130% 0, -30% 0, -15% 100%, 110% 115%);
+        }
+      }
+
+      /* Angled */
+      [data-style='angled']::view-transition-old(root) {
+        animation: none;
+        z-index: -1;
+      }
+
+      [data-style='angled']::view-transition-new(root) {
+        animation: unclip 1s;
+        clip-path: polygon(-100vmax 100%, 100% 100%, 100% -100vmax);
+      }
+
+      @keyframes unclip {
+        0% {
+          clip-path: polygon(100% 100%, 100% 100%, 100% 100%);
+        }
+      }
+
+      /* Flip */
+      [data-style='flip']:root {
+        --size: 45px;
+        --line: color-mix(in lch, white, transparent 85%);
+        background: linear-gradient(
+              90deg,
+              var(--line) 1px,
+              transparent 1px var(--size)
+            )
+            50% 50% / var(--size) var(--size),
+          linear-gradient(var(--line) 1px, transparent 1px var(--size)) 50% 50% /
+            var(--size) var(--size),
+          hsl(210 70% 34%);
+      }
+
+      [data-style='flip']::view-transition-new(body),
+      [data-style='flip']::view-transition-old(body) {
+        animation: pan 1s ease-in-out;
+        backface-visibility: hidden;
+        box-shadow: 2.2px 61.3px 73.1px -2px hsl(0 0% 0% / 0.58);
+      }
+
+      [data-style='flip']::view-transition-new(body) {
+        --sr: 180deg;
+        background: canvas;
+      }
+
+      [data-style='flip']::view-transition-old(body) {
+        --sr: 0deg;
+        backface-visibility: hidden;
+      }
+
+      [data-style='flip'] body {
+        view-transition-name: body;
+      }
+
+      @keyframes pan {
+        0% {
+          transform: scale(1) rotateY(var(--sr));
         }
 
-        .hakka-box { 
-            background: var(--bgc_1); 
-            height: 690px; 
-            margin: 30px auto 10px; 
-            overflow: hidden; 
-            position: relative; 
-            width: 580px; 
-            border-radius: 10px; 
-        }
-        .hakka-box br { display: none!important; }
-
-        .hakka-top-img { 
-            background: var(--ORPHAN); 
-            height: 200px; 
-            width: 580px; 
-            opacity: .7; 
-        }
-        .hakka-top-img img { 
-            height: 100%; 
-            filter: grayscale(100%) contrast(120%); 
-            mix-blend-mode: multiply; 
-            object-fit: cover; 
-            width: 100%; 
+        25% {
+          transform: scale(0.5) rotateY(var(--sr));
+          box-shadow: 1.8px 50.7px 51.4px -3.2px hsl(0 0% 0% / 0.32);
         }
 
-        .hakka-topbar { margin: 60px 40px; }
-        .hakka-topbar .topbar-img { 
-            margin-top: -3px; 
-            opacity: .7; 
-            border: 1px solid var(--ORPHAN); 
-            border-radius: 100%; 
-            float: left; 
-            height: 80px; 
-            margin-right: 20px; 
-            width: 80px; 
-            background: var(--bgc_1); 
-            padding: 18px;
-        }
-        .hakka-topbar .topbar-img img { 
-            border-radius: 100%; 
-            filter: grayscale(100%) contrast(120%); 
-            height: 80px; 
-            width: 80px; 
-            transition: 0.5s; 
-        }
-        .hakka-topbar .hakka-color { 
-            height: 80px; 
-            width: 80px; 
-            background: var(--ORPHAN); 
-            border-radius: 100%; 
-            transition: .3s; 
-            position: relative; 
-            margin: -84px 0; 
-            mix-blend-mode: multiply; 
+        75% {
+          transform: scale(0.5) rotateY(calc(var(--sr) + 180deg));
+          box-shadow: 1.8px 50.7px 51.4px -3.2px hsl(0 0% 0% / 0.32);
         }
 
-        .hakka-topbar nombre { 
-            color: #edecee; 
-            font: 300 34px 'Clash Display', sans-serif; 
-            display: block; 
-            height: 76px; 
-            letter-spacing: -.5px; 
-            line-height: 28px; 
-            margin-top: -10px; 
-            text-transform: uppercase; 
+        100% {
+          transform: scale(1) rotateY(calc(var(--sr) + 180deg));
         }
-        .hakka-topbar nombre b { 
-            opacity: .7; 
-            color: var(--ORPHAN); 
-            display: block; 
-            font-size: 28px; 
-        }
-        .hakka-topbar frase { 
-            font: normal 9px "Inter"; 
-            color: #edecee; 
-            margin-top: -18px; 
-            display: block; 
-            text-transform: uppercase; 
-            letter-spacing: .2px; 
-        }
-        .hakka-topbar frase b { color: var(--ORPHAN); }
-        .hakka-topbar grupo { 
-            opacity: .7; 
-            background: var(--ORPHAN); 
-            color: #000; 
-            display: inline-block; 
-            font: 600 9px "Poppins"; 
-            letter-spacing: .2px; 
-            padding: 5px; 
-            text-transform: uppercase; 
-            margin-top: 7px; 
-        }
-        .hakka-topbar grupo b { 
-            letter-spacing: -.5px; 
-            font-size: 10px;
-        }
+      }
 
-        .hakka-datos { 
-            color: #edecee; 
-            font: normal 10px "Inter"; 
-            height: 230px; 
-            margin: -20px 30px; 
-            overflow: hidden; 
-            width: 504; 
-        }
-        .hakka-datos dato { 
-            background: var(--bg_main); 
-            opacity: .7; 
-            border-left: 2px solid var(--ORPHAN); 
-            margin: 4px 2px; 
-            display: inline-block; 
-            padding: 18px 15px; 
-            vertical-align: top; 
-            width: 222px; 
-        }
-        .hakka-datos dato i { 
-            color: var(--ORPHAN); 
-            font: 15px "Poppins"; 
-            margin-right: 10px; 
-            margin-top: -2px; 
-            text-transform: uppercase; 
-            float:left;
-        }
+      [data-style='flip']:root {
+        view-transition-name: none;
+      }
 
-        .hakka-box .hakka-content { 
-            position: absolute; 
-            top: 700px; 
-            background: var(--bg_main); 
-            margin: 20px; 
-            border-radius: 10px; 
-            padding: 30px; 
-            overflow: hidden; 
-            transition: all 0.5s ease-in-out; 
-            height: 364px; 
-            color: #edecee; 
-        }
-        .hakka-txt { 
-            text-align: justify; 
-            font: 400 11px "Inter", sans-serif; 
-            line-height: 15px; 
-            height: 365px; 
-            overflow: auto;
-            padding-right: 6px;
-        }
-        .hakka-box:hover .hakka-content{ 
-            top: 200px; 
-            transition: all 0.5s ease-in-out; 
-        }
-        .hakka-content br { display: initial!important; }
-        .hakka-content b, .hakka-content strong, .hakka-content s, .hakka-content u, .hakka-content i { color: var(--ORPHAN); }
-        .hakka-content s, .hakka-content a { 
-            font: 800 13px 'Playfair Display'; 
-            line-height: 0; 
-            text-decoration: none; 
-        }
-        .hakka-content a { color: #ccc; }
-        .hakka-content u { 
-            opacity: .9; 
-            font: 700 12px "Poppins"; 
-            letter-spacing: 0px; 
-            line-height: 0; 
-            text-decoration: none; 
-        }
+      /* Vertical */
+      [data-style='vertical']::view-transition-new(root) {
+        animation: reveal 1s;
+        clip-path: inset(0 0 0 0);
+        z-index: 2;
+      }
 
-        .hakka-1 { 
-            font-weight: 400; 
-            color: var(--ORPHAN); 
-            font: 22px "Clash Display", sans-serif; 
-            letter-spacing: 2px; 
-            text-transform: uppercase; 
-            width: 341px; 
-            display: block; 
-            background: var(--bgc_main); 
-            margin: 5px 0 10px 5px; 
-        }
-        .hakka-txt .hakka-1 b { 
-            font-weight: 400; 
-            border-bottom: 2px solid var(--ORPHAN); 
-            color: #edecee; 
-        }
+      [data-style='vertical']::view-transition-old(root) {
+        z-index: -1;
+        animation: none;
+      }
 
-        .hakka-txt lista { counter-reset: myli; } 
-        .hakka-txt lista li::before { 
-            opacity: .7; 
-            color: var(--ORPHAN); 
-            content: counter(myli, decimal-leading-zero) "."; 
-            font: 700 16px "Poppins"; 
-            padding: 0 7px 0 5px; 
-            line-height: 0; 
-            display: inline; 
-            text-align: right; 
-            width: 30px; 
+      @keyframes reveal {
+        from {
+          clip-path: inset(var(--from));
         }
-        .hakka-txt lista li { 
-            counter-increment: myli; 
-            display: inline-block; 
-        }
-        .hakka-txt ol { 
-            counter-reset: list; 
-            margin: 0; 
-            padding-left: 20px; 
-        }
-        .hakka-txt ol li { counter-increment: list; }
-        .hakka-txt ol li::before { 
-            content: counters(list, ".", lower-roman) "."; 
-            font-size: 12px; 
-            width: 20px; 
-        }
-          
-        .hakka-txt::-webkit-scrollbar { width: 5px; height: 0; }
-        .hakka-txt::-webkit-scrollbar-thumb { 
-            background-color: var(--ORPHAN); 
-            border: 1px solid var(--bgc_main); 
-        }
-        .hakka-txt::-webkit-scrollbar-track-piece { 
-            background-color: var(--bg_main); 
-            border: 1px solid var(--ORPHAN); 
-        }
+      }
 
-        .hakka-txt h1 { 
-            opacity: .9; 
-            border-bottom: 1px solid #222; 
-            color: var(--ORPHAN); 
-            font: 18px "Clash Display", sans-serif; 
-            letter-spacing: 2px; 
-            margin-top: 0; 
-            margin-bottom: -5px; 
-            text-transform: uppercase; 
-        }
-        .hakka-txt h1 b { 
-            border-bottom: 2px solid var(--ORPHAN); 
-            color: #bababa; 
-            position: absolute; 
-            background: var(--bgc_1); 
-        }
-        .hakka-txt h2 { 
-            opacity: .9; 
-            color: var(--ORPHAN); 
-            display: inline-block; 
-            font: 400 20px "Clash Display", sans-serif; 
-            letter-spacing: -1px; 
-            margin: 0; 
-        } 
-        .hakka-txt h3 { 
-            opacity: .8; 
-            background: var(--ORPHAN); 
-            color: #000; 
-            display: inline-block; 
-            float: left; 
-            font: 800 10px "Poppins"; 
-            letter-spacing: .3px; 
-            margin:4px; 
-            margin-right: 6px; 
-            padding: 10px; 
-            text-transform: uppercase; 
-        }
-        .hakka-txt h4 { 
-            opacity: .9; 
-            color: var(--ORPHAN); 
-            display: inline-block; 
-            font: 800 12px "Poppins"; 
-            text-align: right; 
-            text-transform: uppercase; 
-            margin: 0 10px 0 6px; 
-            letter-spacing: .3px; 
-        }
+      [data-theme='dark'] {
+        --from: 0 0 100% 0;
+      }
 
-        .hakka-txt l { 
-            background: var(--bg_c); 
-            display: block; 
-            padding: 10px; 
-            margin: 0 5px -10px 0; 
-            margin-top: -1px; 
-        }
-        .hakka-txt l .fa { 
-            color: var(--ORPHAN); 
-            float: left; 
-            margin-left: 5px; 
-            margin-right: 10px; 
-        }
-        .hakka-gg {
-            display: flex; 
-            flex-flow: row wrap; 
-            justify-content: space-between; 
-            border-radius: 10px; 
-            margin-top: -1px; 
-        }
-        .hakka-gg l { 
-            background: var(--bg_c); 
-            color: #ababab; 
-            padding: 4px 5px; 
-            border-radius:5px; 
-            font-size: 8px; 
-            text-transform:uppercase; 
-            letter-spacing:1px; 
-            text-align:center; 
-            flex: 1 0 auto; 
-            transition:.2s; 
-            margin: 0 5px 4px 0; 
-            font-weight: bold; 
-        } 
-        .hakka-gg l .fa { 
-            color: var(--ORPHAN); 
-            float: left; 
-            margin: 3px 6px 0 4px; 
-            font-size: 10px; 
-        }
-        .hakka-gg l:hover { 
-            opacity: .7; 
-            background: var(--ORPHAN); 
-            color: var(--bgc_1); 
-        } 
-        .hakka-gg l:hover .fa { 
-            color: var(--bgc_1); 
-        }
-        .hakka-qq { 
-            opacity: .7; 
-            background: var(--ORPHAN); 
-            font-weight: bold; 
-            font-size: 13px; 
-            color: var(--bgc_1); 
-            padding: 14px; 
-            border-radius: 10px; 
-            margin-top: 10px; 
-            font-family: Poppins; 
-        }
-        .hakka-qq::before { 
-            content: "\ec2b"; 
-            color: var(--bgc_1); 
-            font-family: 'cappuccicons'; 
-            font-size: 24px; 
-            margin-right: 10px; 
-            float: left; 
-            padding: 5px 0; 
-        }
-        .hakka-gg br { display: none; }
+      [data-theme='light'] {
+        --from: 100% 0 0 0;
+      }
 
-        .hakka-box registro { 
-            bottom: 0; 
-            color: #000; 
-            opacity: .7; 
-            background: var(--ORPHAN); 
-            display: block; 
-            font: 600 10px "Poppins"; 
-            padding: 8px 10px; 
-            position: absolute; 
-            text-align: right; 
-            text-transform: uppercase; 
-            width: 560px; 
-            right: 0; 
-        }
-        .hakka grupo b, .hakka-box registro b, .hakka-txt h1 b { 
-            font-weight: 800; 
-        }
-        .hakka-box registro b {
-            opacity: .5;
-        }
+      [data-theme='system'] {
+        --from: 0 100% 0 0;
+      }
 
-        .hakka-box ::selection { 
-            background: var(--ORPHAN); 
-            color: #000; 
-        } 
-        .hakka-box ::-moz-selection { 
-            background: var(--ORPHAN); 
-            color: #000; 
+      /* Slides */
+      @property --column-one {
+        inherits: true;
+        initial-value: 0;
+        syntax: '<number>';
+      }
+
+      @property --column-two {
+        inherits: true;
+        initial-value: 0;
+        syntax: '<number>';
+      }
+
+      @property --column-three {
+        inherits: true;
+        initial-value: 0;
+        syntax: '<number>';
+      }
+
+      @property --column-four {
+        inherits: true;
+        initial-value: 0;
+        syntax: '<number>';
+      }
+
+      @property --column-five {
+        inherits: true;
+        initial-value: 0;
+        syntax: '<number>';
+      }
+
+      @keyframes one {
+        from {
+          --column-one: 100;
         }
+      }
+
+      @keyframes two {
+        from {
+          --column-two: 100;
+        }
+      }
+
+      @keyframes three {
+        from {
+          --column-three: 100;
+        }
+      }
+
+      @keyframes four {
+        from {
+          --column-four: 100;
+        }
+      }
+
+      @keyframes five {
+        from {
+          --column-five: 100;
+        }
+      }
+
+      [data-style='slides']::view-transition-new(root) {
+        clip-path: polygon(
+          /* 1st column */ 0 100%,
+          0 calc(var(--column-one) * 1%),
+          20% calc(var(--column-one) * 1%),
+          20% 100%,
+          /* 2nd column */ 20% 100%,
+          20% calc(var(--column-two) * 1%),
+          40% calc(var(--column-two) * 1%),
+          40% 100%,
+          /* 3rd column */ 40% 100%,
+          40% calc(var(--column-three) * 1%),
+          60% calc(var(--column-three) * 1%),
+          60% 100%,
+          /* 4th column */ 60% 100%,
+          60% calc(var(--column-four) * 1%),
+          80% calc(var(--column-four) * 1%),
+          80% 100%,
+          /* 5th column */ 80% 100%,
+          80% calc(var(--column-five) * 1%),
+          100% calc(var(--column-five) * 1%),
+          100% 100%
+        );
+      }
+
+      [data-style='slides']::view-transition-new(root) {
+        --speed: 0.625;
+        --columns: 5;
+        animation: one calc(var(--speed) * 1s)
+            calc(sin((0 / 5) * 45deg) * var(--speed) * 1s),
+          two calc(var(--speed) * 1s) calc(sin((1 / 5) * 45deg) * var(--speed) * 1s),
+          three calc(var(--speed) * 1s)
+            calc(sin((2 / 5) * 45deg) * var(--speed) * 1s),
+          four calc(var(--speed) * 1s)
+            calc(sin((3 / 5) * 45deg) * var(--speed) * 1s),
+          five calc(var(--speed) * 1s)
+            calc(sin((4 / 5) * 45deg) * var(--speed) * 1s);
+        animation-fill-mode: both;
+        animation-timing-function: linear(
+          0 0%,
+          0.0027 3.64%,
+          0.0106 7.29%,
+          0.0425 14.58%,
+          0.0957 21.87%,
+          0.1701 29.16%,
+          0.2477 35.19%,
+          0.3401 41.23%,
+          0.5982 55.18%,
+          0.7044 61.56%,
+          0.7987 68.28%,
+          0.875 75%,
+          0.9297 81.25%,
+          0.9687 87.5%,
+          0.9922 93.75%,
+          1 100%
+        );
+        z-index: 2;
+      }
+
+      [data-style='slides']::view-transition-old(root) {
+        animation: none;
+      }
+    }
+
+    @layer base {
+      :root {
+        --font-size-min: 16;
+        --font-size-max: 20;
+        --font-ratio-min: 1.2;
+        --font-ratio-max: 1.33;
+        --font-width-min: 375;
+        --font-width-max: 1500;
+      }
+
+      html {
+        color-scheme: light dark;
+      }
+
+      [data-theme='light'] {
+        color-scheme: light only;
+      }
+
+      [data-theme='dark'] {
+        color-scheme: dark only;
+      }
+
+      :where(.fluid) {
+        --fluid-min: calc(
+          var(--font-size-min) * pow(var(--font-ratio-min), var(--font-level, 0))
+        );
+        --fluid-max: calc(
+          var(--font-size-max) * pow(var(--font-ratio-max), var(--font-level, 0))
+        );
+        --fluid-preferred: calc(
+          (var(--fluid-max) - var(--fluid-min)) /
+            (var(--font-width-max) - var(--font-width-min))
+        );
+        --fluid-type: clamp(
+          (var(--fluid-min) / 16) * 1rem,
+          ((var(--fluid-min) / 16) * 1rem) -
+            (((var(--fluid-preferred) * var(--font-width-min)) / 16) * 1rem) +
+            (var(--fluid-preferred) * var(--variable-unit, 100vi)),
+          (var(--fluid-max) / 16) * 1rem
+        );
+        font-size: var(--fluid-type);
+      }
+
+      *,
+      *:after,
+      *:before {
+        box-sizing: border-box;
+      }
+
+      body {
+        display: grid;
+        background: canvas;
+        color: canvasText;
+        place-items: center;
+        min-height: 100vh;
+        font-family: 'SF Pro Text', 'SF Pro Icons', 'AOS Icons', 'Helvetica Neue',
+          Helvetica, Arial, sans-serif, system-ui;
+      }
+
+      body::before {
+        --size: 45px;
+        --line: color-mix(in lch, canvasText, transparent 70%);
+        content: '';
+        height: 100vh;
+        width: 100vw;
+        position: fixed;
+        background: linear-gradient(
+              90deg,
+              var(--line) 1px,
+              transparent 1px var(--size)
+            )
+            50% 50% / var(--size) var(--size),
+          linear-gradient(var(--line) 1px, transparent 1px var(--size)) 50% 50% /
+            var(--size) var(--size);
+        mask: linear-gradient(-20deg, transparent 50%, white);
+        top: 0;
+        transform-style: flat;
+        pointer-events: none;
+        z-index: -1;
+      }
+
+      .bear-link {
+        color: canvasText;
+        position: fixed;
+        bottom: 1rem;
+        left: 1rem;
+        width: 48px;
+        aspect-ratio: 1;
+        display: grid;
+        place-items: center;
+        opacity: 0.8;
+      }
+
+      :where(.x-link, .bear-link):is(:hover, :focus-visible) {
+        opacity: 1;
+      }
+
+      .bear-link svg {
+        width: 75%;
+      }
+
+      /* Utilities */
+      .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border-width: 0;
+      }
+    }
     </style>
 </head>
 <body>
-    <div id="ORPHAN" class="hakka-box">
-        <div class="hakka-top-img">
-            <img src="https://i.pinimg.com/originals/9a/a8/0f/9aa80fbef37d1ab22dde84c8a5125b01.jpg">
-        </div>
-        <div class="hakka-topbar">
-            <div class="topbar-img">
-                <img src="https://i.pinimg.com/736x/11/3b/4a/113b4a206f80446ea7f5d179b9987be2.jpg">
-                <div class="hakka-color"></div>
+    <main>
+        <div class="content">
+            <h1>@LiSurgut</h1>
+            <div class="tags-grid">
+                <div class="no-tags">В данный момент ни один пользователь не добавил ни одного тега!</div>
             </div>
-
-            <nombre><b>@liSurgut</b></nombre>
-            <frase>Любитель фпс игр, может быть даже на подобии <b>Valorant</b>.</frase>
-            <grupo>В соцах как <b>@liSurgut</b> или <b>Surgut</b></grupo>
-        </div>
-
-        <div class="hakka-datos">
-            <dato><i class="cp cp-alien"></i> Живу : Земля, остальное ебать не особо должно <3</dato>
-            <dato><i class="cp cp-leaf"></i> <a> steamcommunity.com/id/1iSurgut </a></dato>
-        </div>
-
-        <div class="hakka-content">
-            <div class="hakka-txt">
-                <!-- Текст содержимого остался без изменений -->
-                <div class="hakka-1"><b>Хобби</b></div> — <b>Какое, нахер, хобби?!</b> — Такое, наверное, всё-таки есть. Если это, конечно, можно считать хобби, то, вероятно, программирование. Меня затягивает всякая писанина, вроде сайтов на HTML, ботов, майнеров и прочей подобной херни. Даже этот текст, который ты сейчас читаешь, я написал сам, хоть и взял за основу шаблон. Кстати, насчёт шаблона: в последнее время ни одной, блин, идеи в голову не пришло. Может, оно и не нужно, и я просто AFK? Может, просто продать личность, поменять номер и школу и забыть обо всём?! <i>... Так что, наверное, программирование — оно меня расслабляет. Бля, какой же я тупой... (</i><br><br>
-
-                Ну, а в последнее время один человек без слов подсадил меня на <a href="">рисование</a>. Оказалось, это довольно прикольная штука, только пока что прогресса никакого нет. Такое чувство, что, возможно, правда, будто я единственный в мире, кто ничего не умеет.
-                Что бы ещё написать про хобби, чтобы забить этот текст? Ну, наверное, <u>фотография</u>. Не факт, что это будет интересно, но... Меня на это подсадила сестра. Она подогнала мне фотоаппарат, объективы и прочее. Интереснее всего, пожалуй, подбирать ракурс для фотографии и смотреть на получившийся кадр.
-
-                <b>Так что:</b> У меня всё как-то скучно, без изюминки и интересных занятий. Всем этим может заняться кто угодно.<br><br>
-
-                <div class="hakka-1"><b>Обо мне</b></div> — <b>Ну, если смотреть мою историю, то можно, наверное, начать:</b> — <i>Место рождения: Беларусь, Минск.</i> Отучившись первые два класса и с полным знанием русского языка, я переехал в Россию — страну, из которой я на протяжении всей жизни почти не выезжал. Наверное, это самая грустная страна, в которой я был, и, вероятно, моя фактическая родина. У меня рука болит, я ебал. 5 минут...<br><br>
-                
-                После переезда, который занял у нас с семьёй 5 месяцев, мы приобрели квартиру в Москве, откуда я переехал уже очень давно. Кстати, насчёт переездов, которые у меня слишком частые, даже отец задаётся вопросом: "А нахуя?" Я сам иногда думаю, может, мой отчим от федералов пытается скрыться? <a href="">"Возможно..."</a> Ещё очень часто я слышу от родни: "На кого учиться пойдёшь?!" Да, наверное, на юриста. Очень хочется потом стать адвокатом. Откуда эта информация ко мне пришла, я, в душе, не знаю, но мне она нравится, и я уже думаю об этом третий год.
-
-                В последние два года я начал понемногу стримить на платформах вроде Twitch. Уже есть целых <u>890 фолловеров</u>, смысла, правда, от них особо нет, но я очень рад. Контент у меня игровой и AFK. В категории "просто чатинг" у меня, наверное, только программирование, а в игровом стараюсь набирать большое количество игр, чаще всего это FPS и что-то странное.
-
-                <h1>Итоги</h1><br>
-                <br>
-                Скорее всего тут не всё что я хотел рассказать, но на данный момент пока что хватит. Подвод итогов нужен? Наверное да. <br><br>
-               Моя жизнь — это смесь из постоянных <u>переездов</u>, странных увлечений и вечного поиска себя. <i>Хобби у меня есть, но они такие же разрозненные, как и я сам:</i> программирование, которое то затягивает, то вызывает чувство тупости; рисование, которое пока не приносит прогресса, но хоть как-то отвлекает; и фотография, которая, благодаря сестре, стала ещё одним способом убить время.
-
-                Жизнь в России, которую я называю своей <u>фактической родиной</u>, оставляет ощущение грусти и какой-то безысходности. <s>Частые переезды, вопросы от родни о будущем и постоянные размышления о том, "на кого учиться" (юрист, адвокат — кто знает?), создают ощущение, что я всё время нахожусь в подвешенном состоянии.</s>
-                Но есть и плюсы: стримы на Twitch, пусть и с небольшим количеством фолловеров, приносят хоть какое-то удовольствие. <b>Игровой контент, программирование в прямом эфире — это хоть какая-то отдушина в этой рутине.</b>
-                В общем, жизнь у меня пока что скучновата, без ярких красок и грандиозных достижений. <i>Но, может, это и нормально?</i> В конце концов, я ещё только ищу себя, и, возможно, всё это — просто этап, через который нужно пройти.<br><br>
-                
+            <div>
+                <d>Данные теги были созданы через моего </d>
+                <a href="https://lisurgut.github.io"><soul>бота</soul></a>
             </div>
         </div>
-        <meta name="viewport" content="width=device-width, initial-scale=0.8, maximum-scale=0.8, minimum-scale=0.8, user-scalable=no">
-        <registro>by<b>@LiSurgut</b></registro>
-    </div>
+    </main>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+        const tagsGrid = document.querySelector('.tags-grid');
+        const noTagsMsg = document.querySelector('.no-tags');
+        
+        async function loadTags() {
+            try {
+                const response = await fetch('https://raw.githubusercontent.com/liSurgut/liSurgut.github.io/main/tags.json?t=' + Date.now());
+                const tags = await response.json();
+                
+                tagsGrid.innerHTML = '';
+                tags.forEach(tag => {
+                    const div = document.createElement('div');
+                    div.className = 'tag';
+                    div.innerHTML = `
+                        <em>@${tag.user}</em>
+                        <s>${tag.reaction}</s>
+                    `;
+                    tagsGrid.appendChild(div);
+                });
+                
+                noTagsMsg.style.display = tags.length ? 'none' : 'block';
+            } catch (error) {
+                console.error('Ошибка загрузки тегов:', error);
+            }
+        }
+        
+        setInterval(loadTags, 5000); // Обновление каждые 5 секунд
+        loadTags();
+    });
+    </script>
 </body>
 </html>
