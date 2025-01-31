@@ -107,7 +107,9 @@
     transform-style: preserve-3d;
   }
   button span:not(:last-of-type) {
-    position: center;
+	box-sizing: border-box
+	overflow: hidden
+    position: absolute;
     border-radius: inherit;
     border: inherit;
     opacity: 0;
