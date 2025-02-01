@@ -984,32 +984,54 @@ document.addEventListener('DOMContentLoaded', optimizeViewport);
 
 document.addEventListener('DOMContentLoaded', () => {
     const wrap = document.querySelector('.wrap');
+    
+    // Центрирование контейнера без изменения стиля кнопок
+    wrap.style.display = 'flex';
+    wrap.style.flexDirection = 'column';
+    wrap.style.alignItems = 'center';
+    wrap.style.justifyContent = 'center';
+    wrap.style.width = '100%';
+    wrap.style.maxWidth = '100vw';
+    wrap.style.margin = '0 auto';
+    wrap.style.overflow = 'hidden';
+    
+    // Создаем невидимый контейнер-ограничитель
+    const buttonContainer = document.createElement('div');
+    buttonContainer.style.display = 'flex';
+    buttonContainer.style.flexWrap = 'wrap';
+    buttonContainer.style.justifyContent = 'center';
+    buttonContainer.style.alignItems = 'center';
+    buttonContainer.style.width = '100%';
+    buttonContainer.style.maxWidth = '100%';
+    buttonContainer.style.gap = '10px'; // Промежуток между кнопками
+    
+    // Центрирование кнопок с сохранением их оригинального стиля
     const buttons = wrap.querySelectorAll('button');
+    buttons.forEach(button => {
+        // Перемещаем кнопки в новый контейнер
+        buttonContainer.appendChild(button);
+    });
+    
+    // Заменяем содержимое wrap на новый контейнер
+    wrap.innerHTML = '';
+    wrap.appendChild(buttonContainer);
 
+    // Функция для адаптивного размещения
     function arrangeButtons() {
-        // Ширина контейнера
-        const wrapWidth = wrap.offsetWidth;
-        
-        // Суммарная ширина кнопок
+        const containerWidth = wrap.offsetWidth;
         const totalButtonsWidth = Array.from(buttons).reduce((sum, button) => sum + button.offsetWidth + 10, 0);
-
-        // Проверка только для мобильных устройств
-        if (window.innerWidth <= 768 && totalButtonsWidth > wrapWidth) {
-            // Создаем контейнер БЕЗ изменения стилей кнопок
-            const buttonContainer = document.createElement('div');
-            buttonContainer.style.display = 'flex';
+        
+        // Если кнопки не помещаются, меняем flexDirection
+        if (totalButtonsWidth > containerWidth) {
             buttonContainer.style.flexDirection = 'column';
-            buttonContainer.style.alignItems = 'center';
-            buttonContainer.style.width = '100%';
-
-            // Перемещаем кнопки вертикально, НЕ МЕНЯЯ ИХ СТИЛИ
             buttons.forEach(button => {
-                buttonContainer.appendChild(button);
+                button.style.alignSelf = 'center';
             });
-
-            // Очищаем и перестраиваем
-            wrap.innerHTML = '';
-            wrap.appendChild(buttonContainer);
+        } else {
+            buttonContainer.style.flexDirection = 'row';
+            buttons.forEach(button => {
+                button.style.alignSelf = 'auto';
+            });
         }
     }
 
