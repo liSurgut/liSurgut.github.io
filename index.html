@@ -917,50 +917,92 @@ s {
 
 </style>
    <script>
-      const style = document.createElement('style');
-style.textContent = `
-    body {
-        margin: 0;
-        padding: 0;
-        width: 100vw;
-        height: 100vh;
-        overflow: hidden;
+function optimizeViewport() {
+    // Создаем мета-тег для корректного масштабирования на мобильных
+    const metaViewport = document.createElement('meta');
+    metaViewport.name = 'viewport';
+    metaViewport.content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no';
+    document.head.appendChild(metaViewport);
+
+    // Стили для адаптивности
+    const style = document.createElement('style');
+    style.textContent = `
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            overscroll-behavior: none;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #000;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                touch-action: none;
+            }
+        }
+    `;
+    document.head.appendChild(style);
+
+    // Функция проверки устройства
+    function checkDevice() {
+        const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
         
-        /* Центрирование содержимого */
-        display: flex;
-        justify-content: center;
-        align-items: center;
+        if (!isMobile) {
+            // Создаем overlay для desktop
+            const overlay = document.createElement('div');
+            overlay.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0,0,0,0.8);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                z-index: 9999;
+                backdrop-filter: blur(10px);
+                color: white;
+                text-align: center;
+                padding: 20px;
+                box-sizing: border-box;
+            `;
+            
+            overlay.innerHTML = `
+                <div>
+                    <h2>Извините, сайт доступен только с мобильных устройств</h2>
+                    <p>Пожалуйста, откройте сайт на смартфоне или планшете</p>
+                </div>
+            `;
+            
+            document.body.appendChild(overlay);
+        }
     }
-`;
-document.head.appendChild(style);
 
+    // Отключаем зум и прокрутку
+    document.addEventListener('touchmove', (e) => {
+        e.preventDefault();
+    }, { passive: false });
 
-            // Блокировка колеса мыши с Ctrl
-            document.addEventListener('wheel', e => {
-                if(e.ctrlKey) e.preventDefault();
-            }, {passive: false});
+    // Запрещаем зум
+    document.addEventListener('gesturestart', (e) => {
+        e.preventDefault();
+    });
 
-            // Блокировка мультитач-жестов
-            let lastTouchEnd = 0;
-            document.addEventListener('touchstart', e => {
-                if(e.touches.length > 1) e.preventDefault();
-            });
+    // Проверяем устройство при загрузке
+    checkDevice();
+}
 
-            document.addEventListener('touchend', e => {
-                const now = Date.now();
-                if(now - lastTouchEnd <= 300) e.preventDefault();
-                lastTouchEnd = now;
-            });
+// Вызываем функцию при загрузке документа
+document.addEventListener('DOMContentLoaded', optimizeViewport);
 
-            document.addEventListener('touchmove', e => {
-                if(e.touches.length > 1) e.preventDefault();
-            }, {passive: false});
-
-            // Динамическое изменение viewport (не всегда работает)
-            const meta = document.createElement('meta');
-            meta.name = 'viewport';
-            meta.content = 'width=device-width, initial-scale=1.2, maximum-scale=1.2, minimum-scale=1.2';
-            document.head.appendChild(meta);
-        });
     </script>
 </html>
