@@ -995,68 +995,24 @@ document.addEventListener('DOMContentLoaded', () => {
     wrap.style.margin = '0 auto';
     wrap.style.overflow = 'hidden';
     
-    // Создаем невидимый контейнер-ограничитель
-    const buttonContainer = document.createElement('div');
-    buttonContainer.style.display = 'flex';
-    buttonContainer.style.flexWrap = 'wrap';
-    buttonContainer.style.justifyContent = 'center';
-    buttonContainer.style.alignItems = 'center';
-    buttonContainer.style.width = '100%';
-    buttonContainer.style.maxWidth = '100%';
-    buttonContainer.style.gap = '10px'; // Промежуток между кнопками
-    
     // Центрирование кнопок с сохранением их оригинального стиля
     const buttons = wrap.querySelectorAll('button');
     buttons.forEach(button => {
-        // Клонируем стили, чтобы не потерять оригинальное оформление
-        const originalStyles = window.getComputedStyle(button);
-        
-        // Копируем все важные стили
-        button.style.backgroundColor = originalStyles.backgroundColor;
-        button.style.color = originalStyles.color;
-        button.style.border = originalStyles.border;
-        button.style.borderRadius = originalStyles.borderRadius;
-        button.style.padding = originalStyles.padding;
-        button.style.fontSize = originalStyles.fontSize;
-        button.style.fontWeight = originalStyles.fontWeight;
-        button.style.textTransform = originalStyles.textTransform;
-        button.style.boxShadow = originalStyles.boxShadow;
-        
-        // Перемещаем кнопки в новый контейнер
-        buttonContainer.appendChild(button);
-    });
-    
-    // Заменяем содержимое wrap на новый контейнер
-    wrap.innerHTML = '';
-    wrap.appendChild(buttonContainer);
-
-    // Функция для адаптивного размещения
-    function arrangeButtons() {
-        const containerWidth = wrap.offsetWidth;
-        const totalButtonsWidth = Array.from(buttons).reduce((sum, button) => sum + button.offsetWidth + 10, 0);
-        
-        // Если кнопки не помещаются, меняем flexDirection
-        if (totalButtonsWidth > containerWidth) {
-            buttonContainer.style.flexDirection = 'column';
-            buttons.forEach(button => {
-                button.style.alignSelf = 'center';
-                button.style.width = '100%';
-                button.style.maxWidth = '300px'; // Ограничиваем максимальную ширину
-            });
-        } else {
-            buttonContainer.style.flexDirection = 'row';
-            buttons.forEach(button => {
-                button.style.alignSelf = 'auto';
-                button.style.width = 'auto';
-                button.style.maxWidth = 'none';
-            });
+        // Обработка переноса текста по \n
+        if (button.textContent.includes('\\n')) {
+            const lines = button.textContent.split('\\n');
+            button.innerHTML = lines.join('<br>');
         }
-    }
-
-    // Первичный вызов и обработка resize
-    arrangeButtons();
-    window.addEventListener('resize', arrangeButtons);
+        
+        // Центрируем только контейнер кнопки
+        button.parentElement.style.display = 'flex';
+        button.parentElement.style.justifyContent = 'center';
+        button.parentElement.style.alignItems = 'center';
+        button.parentElement.style.width = '100%';
+        button.parentElement.style.maxWidth = '100vw';
+    });
 });
+
 
 
     </script>
