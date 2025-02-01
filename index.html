@@ -985,7 +985,7 @@ document.addEventListener('DOMContentLoaded', optimizeViewport);
 document.addEventListener('DOMContentLoaded', () => {
     const wrap = document.querySelector('.wrap');
     
-    // Центрирование и ограничение wrap
+    // Центрирование контейнера без изменения стиля кнопок
     wrap.style.display = 'flex';
     wrap.style.flexDirection = 'column';
     wrap.style.alignItems = 'center';
@@ -994,41 +994,21 @@ document.addEventListener('DOMContentLoaded', () => {
     wrap.style.maxWidth = '100vw';
     wrap.style.margin = '0 auto';
     wrap.style.overflow = 'hidden';
-    wrap.style.boxSizing = 'border-box';
-    wrap.style.padding = '0 10px';
     
-    // Центрирование и ограничение кнопок
+    // Центрирование кнопок с сохранением их оригинального стиля
     const buttons = wrap.querySelectorAll('button');
     buttons.forEach(button => {
-        button.style.display = 'flex';
-        button.style.justifyContent = 'center';
-        button.style.alignItems = 'center';
-        button.style.width = '100%';
-        button.style.maxWidth = '320px';
-        button.style.margin = '5px auto';
-        button.style.overflow = 'hidden';
-        button.style.textOverflow = 'ellipsis';
-        button.style.whiteSpace = 'nowrap';
+        // Получаем реальную ширину кнопки
+        const buttonWidth = button.offsetWidth;
+        
+        // Центрируем только контейнер кнопки
+        button.parentElement.style.display = 'flex';
+        button.parentElement.style.justifyContent = 'center';
+        button.parentElement.style.alignItems = 'center';
+        button.parentElement.style.width = '100%';
+        button.parentElement.style.maxWidth = '100vw';
     });
-
-    // Адаптивность для мобильных устройств
-    function handleResize() {
-        if (window.innerWidth <= 768) {
-            buttons.forEach(button => {
-                button.style.maxWidth = '95%';
-            });
-        } else {
-            buttons.forEach(button => {
-                button.style.maxWidth = '320px';
-            });
-        }
-    }
-
-    // Первоначальный вызов и обработка resize
-    handleResize();
-    window.addEventListener('resize', handleResize);
 });
-
 
     </script>
 </html>
