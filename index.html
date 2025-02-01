@@ -9,8 +9,11 @@
 <div class="wrap">
       <button>
         <span></span><span></span><span></span>
-        <span>@daunnaigle <kbd> hyesos<3 </kbd></span>\n<span></span><span></span><span></span>
-    <span>@Nowayaavavy <kbd> AYAN! </kbd></span>
+        <span>@daunnaigle <kbd> hyesos<3 </kbd></span>
+       </button>
+       <button>
+       <span></span><span></span><span></span>
+       <span>@Nowayaavavy <kbd> AYAN! </kbd></span>
        </button>
 	      <p></p>
 	      <button>
@@ -981,7 +984,7 @@ document.addEventListener('DOMContentLoaded', optimizeViewport);
 document.addEventListener('DOMContentLoaded', () => {
     const wrap = document.querySelector('.wrap');
     
-    // Центрирование контейнера без изменения стиля кнопок
+    // Центрирование контейнера
     wrap.style.display = 'flex';
     wrap.style.flexDirection = 'column';
     wrap.style.alignItems = 'center';
@@ -991,23 +994,29 @@ document.addEventListener('DOMContentLoaded', () => {
     wrap.style.margin = '0 auto';
     wrap.style.overflow = 'hidden';
     
-    // Центрирование кнопок с сохранением их оригинального стиля
+    // Создаем флекс-контейнер для кнопок
+    const buttonContainer = document.createElement('div');
+    buttonContainer.style.display = 'flex';
+    buttonContainer.style.flexWrap = 'wrap';
+    buttonContainer.style.justifyContent = 'center';
+    buttonContainer.style.alignItems = 'center';
+    buttonContainer.style.gap = '10px'; // Отступ между кнопками
+    buttonContainer.style.width = '100%';
+    
+    // Перемещаем кнопки в новый контейнер
     const buttons = wrap.querySelectorAll('button');
     buttons.forEach(button => {
-        // Обработка переноса текста по \n
-        if (button.textContent.includes('\\n')) {
-            const lines = button.textContent.split('\\n');
-            button.innerHTML = lines.join('<br>');
-        }
-        
-        // Центрируем только контейнер кнопки
-        button.parentElement.style.display = 'flex';
-        button.parentElement.style.justifyContent = 'center';
-        button.parentElement.style.alignItems = 'center';
-        button.parentElement.style.width = '100%';
-        button.parentElement.style.maxWidth = '100vw';
+        // Сохраняем оригинальные стили кнопки
+        button.style.flexBasis = 'calc(50% - 5px)'; // Две кнопки в строке
+        button.style.maxWidth = '300px'; // Максимальная ширина кнопки
+        buttonContainer.appendChild(button);
     });
+    
+    // Заменяем содержимое wrap новым контейнером
+    wrap.innerHTML = '';
+    wrap.appendChild(buttonContainer);
 });
+
 
 
 
