@@ -920,26 +920,34 @@ s {
         const style = document.createElement('style');
 style.textContent = `
     body {
-        /* Современный способ запрета взаимодействий */
         touch-action: none;
         user-select: none;
         
-        /* Корректное масштабирование */
         transform: scale(1);
         transform-origin: 0 0;
         
-        /* Фиксированные размеры */
         width: 100vw;
         height: 100vh;
         
-        /* Запрет прокрутки */
         overflow: hidden;
         
-        /* Выравнивание содержимого (если нужно) */
         display: flex;
         justify-content: center;
         align-items: center;
     }
+    
+    @viewport {
+        zoom: 1.0;
+        min-zoom: 1.0;
+        max-zoom: 1.0;
+    }
+`;
+document.head.appendChild(style);
+
+// Центрирование камеры в 50% по X и Y
+document.body.style.transform = `translate(-50%, -50%)`;
+
+}
     
     /* Отключение масштабирования в современных браузерах */
     @viewport {
