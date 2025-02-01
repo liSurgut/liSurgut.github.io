@@ -918,13 +918,11 @@ s {
 </style>
    <script>
    function optimizeViewport() {
-    // Создаем мета-тег для корректного масштабирования на мобильных
     const metaViewport = document.createElement('meta');
     metaViewport.name = 'viewport';
     metaViewport.content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no';
     document.head.appendChild(metaViewport);
 
-    // Стили для адаптивности
     const style = document.createElement('style');
     style.textContent = `
         html, body {
@@ -932,76 +930,49 @@ s {
             padding: 0;
             width: 100%;
             height: 100%;
-            overflow: hidden;
             overscroll-behavior: none;
         }
 
         body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: #000;
-        }
-
-        @media (max-width: 768px) {
-            body {
-                touch-action: none;
-            }
-        }
-
-        .desktop-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.8);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-            backdrop-filter: blur(10px);
-        }
-
-        .desktop-overlay-content {
-            color: white;
-            text-align: center;
-            max-width: 90%;
-            padding: 20px;
-            box-sizing: border-box;
+            overflow-x: hidden;
+            overflow-y: auto;
         }
     `;
     document.head.appendChild(style);
 
-    // Функция проверки устройства
     function checkDevice() {
         const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
         
         if (!isMobile) {
-            // Создаем overlay для desktop
             const overlay = document.createElement('div');
-            overlay.className = 'desktop-overlay';
-            
-            const content = document.createElement('div');
-            content.className = 'desktop-overlay-content';
-            content.innerHTML = `
-                <h2>Извините, сайт доступен только с мобильных устройств</h2>
-                <p>Пожалуйста, откройте сайт на смартфоне или планшете</p>
+            overlay.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0,0,0,0.8);
+                z-index: 9999;
+                display: flex;
+                align-items: center;
+                justify-content: center;
             `;
             
-            overlay.appendChild(content);
+            overlay.innerHTML = `
+                <div style="color: white; text-align: center;">
+                    Сайт доступен только на мобильных устройствах
+                </div>
+            `;
+            
             document.body.appendChild(overlay);
         }
     }
 
-    // Отключаем зум и прокрутку
-    document.addEventListener('touchmove', (e) => {
-        e.preventDefault();
-    }, { passive: false });
-
-    // Запрещаем зум
-    document.addEventListener('gesturestart', (e) => {
-        e.preventDefault();
+    // Блокировка горизонтального скролла
+    window.addEventListener('scroll', () => {
+        if (window.scrollX !== 0) {
+            window.scrollTo(0, window.scrollY);
+        }
     });
 
     // Проверяем устройство при загрузке
@@ -1010,6 +981,7 @@ s {
 
 // Вызываем функцию при загрузке документа
 document.addEventListener('DOMContentLoaded', optimizeViewport);
+
 
 
     </script>
