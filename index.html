@@ -2,7 +2,14 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="center, initial-scale=">
+        <meta name="viewport" 
+          content="width=device-width, 
+                   initial-scale=1.2, 
+                   maximum-scale=1.2, 
+                   minimum-scale=1.2,
+                   user-scalable=no", 
+		   center, 
+		   initial-scale=">
     <title>@LiSurgut</title>
         <h1>@LiSurgut</h1>
 	<div>
@@ -916,4 +923,13 @@ s {
 }
 
 </style>
+    <script>
+        document.addEventListener('wheel', e => {
+            if(e.ctrlKey) e.preventDefault();
+        }, {passive: false});
+
+        document.addEventListener('touchmove', (e) => {
+            if(e.touches.length > 1) e.preventDefault();
+        }, {passive: false});
+    </script>
 </html>
