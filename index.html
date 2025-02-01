@@ -989,26 +989,27 @@ document.addEventListener('DOMContentLoaded', () => {
     wrap.style.flexDirection = 'column';
     wrap.style.alignItems = 'center';
     wrap.style.justifyContent = 'center';
-    wrap.style.width = '100%';
-    wrap.style.maxWidth = '100vw';
-    wrap.style.margin = '0 auto';
-    wrap.style.overflow = 'hidden';
     
     // Создаем флекс-контейнер для кнопок
     const buttonContainer = document.createElement('div');
     buttonContainer.style.display = 'flex';
     buttonContainer.style.flexWrap = 'wrap';
     buttonContainer.style.justifyContent = 'center';
-    buttonContainer.style.alignItems = 'center';
     buttonContainer.style.gap = '10px'; // Отступ между кнопками
     buttonContainer.style.width = '100%';
     
     // Перемещаем кнопки в новый контейнер
     const buttons = wrap.querySelectorAll('button');
     buttons.forEach(button => {
-        // Сохраняем оригинальные стили кнопки
-        button.style.flexBasis = 'calc(50% - 5px)'; // Две кнопки в строке
-        button.style.maxWidth = '300px'; // Максимальная ширина кнопки
+        // Сброс принудительного растягивания
+        button.style.width = 'auto';
+        button.style.flexGrow = '0';
+        button.style.flexShrink = '1';
+        
+        // Возвращаем оригинальные стили кнопок
+        button.style.backgroundColor = ''; // Убираем серый цвет
+        button.style.color = ''; // Возвращаем оригинальный цвет текста
+        
         buttonContainer.appendChild(button);
     });
     
@@ -1016,9 +1017,6 @@ document.addEventListener('DOMContentLoaded', () => {
     wrap.innerHTML = '';
     wrap.appendChild(buttonContainer);
 });
-
-
-
 
     </script>
 </html>
