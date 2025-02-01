@@ -984,31 +984,41 @@ document.addEventListener('DOMContentLoaded', optimizeViewport);
 
 document.addEventListener('DOMContentLoaded', () => {
     const wrap = document.querySelector('.wrap');
-    
-    // Центрирование контейнера без изменения стиля кнопок
-    wrap.style.display = 'flex';
-    wrap.style.flexDirection = 'column';
-    wrap.style.alignItems = 'center';
-    wrap.style.justifyContent = 'center';
-    wrap.style.width = '100%';
-    wrap.style.maxWidth = '100vw';
-    wrap.style.margin = '0 auto';
-    wrap.style.overflow = 'hidden';
-    
-    // Центрирование кнопок с сохранением их оригинального стиля
     const buttons = wrap.querySelectorAll('button');
-    buttons.forEach(button => {
-        // Получаем реальную ширину кнопки
-        const buttonWidth = button.offsetWidth;
-        
-        // Центрируем только контейнер кнопки
-        button.parentElement.style.display = 'flex';
-        button.parentElement.style.justifyContent = 'center';
-        button.parentElement.style.alignItems = 'center';
-        button.parentElement.style.width = '100%';
-        button.parentElement.style.maxWidth = '100vw';
-    });
+
+    function adjustButtonLayout() {
+        // Сбрасываем предыдущие стили
+        buttons.forEach(button => {
+            button.parentElement.style.flexDirection = 'row';
+            button.parentElement.style.justifyContent = 'center';
+            button.parentElement.style.alignItems = 'center';
+            button.parentElement.style.gap = '10px';
+        });
+
+        // Проверяем общую ширину кнопок
+        const containerWidth = wrap.offsetWidth;
+        let totalButtonsWidth = 0;
+
+        buttons.forEach(button => {
+            totalButtonsWidth += button.offsetWidth + 10; // учитываем отступ
+        });
+
+        // Если кнопки не помещаются, располагаем вертикально
+        if (totalButtonsWidth > containerWidth) {
+            buttons.forEach(button => {
+                button.parentElement.style.flexDirection = 'column';
+                button.parentElement.style.alignItems = 'center';
+            });
+        }
+    }
+
+    // Первоначальный вызов
+    adjustButtonLayout();
+
+    // Обработка resize
+    window.addEventListener('resize', adjustButtonLayout);
 });
+
 
     </script>
 </html>
