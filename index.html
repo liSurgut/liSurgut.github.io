@@ -917,21 +917,38 @@ s {
 
 </style>
    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // Динамически применяем стили масштабирования
-            const style = document.createElement('style');
-            style.textContent = `
-                body {
-                    zoom: 1.01;
-                    transform: scale(1.01);
-                    transform-origin: 0 0;
-                    width: calc(1.01);
-                    height: calc(1.01);
-                    overflow: hidden;
-                    position: center;
-                }
-            `;
-            document.head.appendChild(style);
+        const style = document.createElement('style');
+style.textContent = `
+    body {
+        /* Современный способ запрета взаимодействий */
+        touch-action: none;
+        user-select: none;
+        
+        /* Корректное масштабирование */
+        transform: scale(1);
+        transform-origin: 0 0;
+        
+        /* Фиксированные размеры */
+        width: 100vw;
+        height: 100vh;
+        
+        /* Запрет прокрутки */
+        overflow: hidden;
+        
+        /* Выравнивание содержимого (если нужно) */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    /* Отключение масштабирования в современных браузерах */
+    @viewport {
+        zoom: 1.0;
+        min-zoom: 1.0;
+        max-zoom: 1.0;
+    }
+`;
+document.head.appendChild(style);
 
             // Блокировка колеса мыши с Ctrl
             document.addEventListener('wheel', e => {
