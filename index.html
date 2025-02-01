@@ -40,6 +40,28 @@
 
 @layer demo {
 
+ body::before {
+    --size: 45px;
+    --line: color-mix(in lch, canvasText, transparent 70%);
+    content: '';
+    height: 100vh;
+    width: 100vw;
+    position: fixed;
+    background: linear-gradient(
+          90deg,
+          var(--line) 1px,
+          transparent 1px var(--size)
+        )
+        50% 50% / var(--size) var(--size),
+      linear-gradient(var(--line) 1px, transparent 1px var(--size)) 50% 50% /
+        var(--size) var(--size);
+    mask: linear-gradient(-20deg, transparent 50%, white);
+    top: 0;
+    transform-style: flat;
+    pointer-events: none;
+    z-index: -1;
+  }
+
    .content {
     padding: 0rem;
     flex: 1;
@@ -346,8 +368,8 @@
   }
 
   body {
-    background: light-dark(#fff, #000);
-    display: grid;
+    background: light-dark(#fff, #000) !important;
+    display: grid !important;
     place-items: center;
     min-height: 100vh;
     font-family: 'Geist', 'SF Pro Text', 'SF Pro Icons', 'AOS Icons',
