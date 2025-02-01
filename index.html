@@ -987,49 +987,36 @@ document.addEventListener('DOMContentLoaded', () => {
     const buttons = wrap.querySelectorAll('button');
 
     function arrangeButtons() {
-        // Получаем ширину контейнера
+        // Ширина контейнера
         const wrapWidth = wrap.offsetWidth;
         
-        // Суммарная ширина всех кнопок
+        // Суммарная ширина кнопок
         const totalButtonsWidth = Array.from(buttons).reduce((sum, button) => sum + button.offsetWidth + 10, 0);
 
-        // Контейнер для кнопок
-        const buttonContainer = document.createElement('div');
-        buttonContainer.style.display = 'flex';
-        buttonContainer.style.justifyContent = 'center';
-        buttonContainer.style.alignItems = 'center';
-        buttonContainer.style.flexWrap = 'wrap';
-        buttonContainer.style.gap = '10px';
-        buttonContainer.style.width = '100%';
-
-        // Если кнопки не помещаются - располагаем вертикально
-        if (totalButtonsWidth > wrapWidth) {
+        // Проверка только для мобильных устройств
+        if (window.innerWidth <= 768 && totalButtonsWidth > wrapWidth) {
+            // Создаем контейнер БЕЗ изменения стилей кнопок
+            const buttonContainer = document.createElement('div');
+            buttonContainer.style.display = 'flex';
             buttonContainer.style.flexDirection = 'column';
-            buttons.forEach(button => {
-                button.style.width = '100%';
-                button.style.maxWidth = '320px';
-            });
-        } else {
-            // Горизонтальное выстраивание
-            buttonContainer.style.flexDirection = 'row';
-            buttons.forEach(button => {
-                button.style.width = 'auto';
-                button.style.maxWidth = 'none';
-            });
-        }
+            buttonContainer.style.alignItems = 'center';
+            buttonContainer.style.width = '100%';
 
-        // Очищаем и перестраиваем
-        wrap.innerHTML = '';
-        buttons.forEach(button => buttonContainer.appendChild(button));
-        wrap.appendChild(buttonContainer);
+            // Перемещаем кнопки вертикально, НЕ МЕНЯЯ ИХ СТИЛИ
+            buttons.forEach(button => {
+                buttonContainer.appendChild(button);
+            });
+
+            // Очищаем и перестраиваем
+            wrap.innerHTML = '';
+            wrap.appendChild(buttonContainer);
+        }
     }
 
     // Первичный вызов и обработка resize
     arrangeButtons();
     window.addEventListener('resize', arrangeButtons);
 });
-
-
 
     </script>
 </html>
