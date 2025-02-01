@@ -1004,11 +1004,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Сброс принудительного растягивания
         button.style.width = 'auto';
         button.style.flexGrow = '0';
-        button.style.flexShrink = '1';
-        
-        // Возвращаем оригинальные стили кнопок
-        button.style.backgroundColor = ''; // Убираем серый цвет
-        button.style.color = ''; // Возвращаем оригинальный цвет текста
+        button.style.flexShrink = 1;
         
         buttonContainer.appendChild(button);
     });
