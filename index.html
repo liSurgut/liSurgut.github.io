@@ -1008,6 +1008,20 @@ document.addEventListener('DOMContentLoaded', () => {
     // Центрирование кнопок с сохранением их оригинального стиля
     const buttons = wrap.querySelectorAll('button');
     buttons.forEach(button => {
+        // Клонируем стили, чтобы не потерять оригинальное оформление
+        const originalStyles = window.getComputedStyle(button);
+        
+        // Копируем все важные стили
+        button.style.backgroundColor = originalStyles.backgroundColor;
+        button.style.color = originalStyles.color;
+        button.style.border = originalStyles.border;
+        button.style.borderRadius = originalStyles.borderRadius;
+        button.style.padding = originalStyles.padding;
+        button.style.fontSize = originalStyles.fontSize;
+        button.style.fontWeight = originalStyles.fontWeight;
+        button.style.textTransform = originalStyles.textTransform;
+        button.style.boxShadow = originalStyles.boxShadow;
+        
         // Перемещаем кнопки в новый контейнер
         buttonContainer.appendChild(button);
     });
@@ -1026,11 +1040,15 @@ document.addEventListener('DOMContentLoaded', () => {
             buttonContainer.style.flexDirection = 'column';
             buttons.forEach(button => {
                 button.style.alignSelf = 'center';
+                button.style.width = '100%';
+                button.style.maxWidth = '300px'; // Ограничиваем максимальную ширину
             });
         } else {
             buttonContainer.style.flexDirection = 'row';
             buttons.forEach(button => {
                 button.style.alignSelf = 'auto';
+                button.style.width = 'auto';
+                button.style.maxWidth = 'none';
             });
         }
     }
@@ -1039,6 +1057,7 @@ document.addEventListener('DOMContentLoaded', () => {
     arrangeButtons();
     window.addEventListener('resize', arrangeButtons);
 });
+
 
     </script>
 </html>
