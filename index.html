@@ -917,7 +917,7 @@ s {
 
 </style>
    <script>
-function optimizeViewport() {
+   function optimizeViewport() {
     // Создаем мета-тег для корректного масштабирования на мобильных
     const metaViewport = document.createElement('meta');
     metaViewport.name = 'viewport';
@@ -948,6 +948,28 @@ function optimizeViewport() {
                 touch-action: none;
             }
         }
+
+        .desktop-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            backdrop-filter: blur(10px);
+        }
+
+        .desktop-overlay-content {
+            color: white;
+            text-align: center;
+            max-width: 90%;
+            padding: 20px;
+            box-sizing: border-box;
+        }
     `;
     document.head.appendChild(style);
 
@@ -958,31 +980,16 @@ function optimizeViewport() {
         if (!isMobile) {
             // Создаем overlay для desktop
             const overlay = document.createElement('div');
-            overlay.style.cssText = `
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background: rgba(0,0,0,0.8);
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                z-index: 9999;
-                backdrop-filter: blur(10px);
-                color: white;
-                text-align: center;
-                padding: 20px;
-                box-sizing: border-box;
+            overlay.className = 'desktop-overlay';
+            
+            const content = document.createElement('div');
+            content.className = 'desktop-overlay-content';
+            content.innerHTML = `
+                <h2>Извините, сайт доступен только с мобильных устройств</h2>
+                <p>Пожалуйста, откройте сайт на смартфоне или планшете</p>
             `;
             
-            overlay.innerHTML = `
-                <div>
-                    <h2>Извините, сайт доступен только с мобильных устройств</h2>
-                    <p>Пожалуйста, откройте сайт на смартфоне или планшете</p>
-                </div>
-            `;
-            
+            overlay.appendChild(content);
             document.body.appendChild(overlay);
         }
     }
@@ -1003,6 +1010,7 @@ function optimizeViewport() {
 
 // Вызываем функцию при загрузке документа
 document.addEventListener('DOMContentLoaded', optimizeViewport);
+
 
     </script>
 </html>
