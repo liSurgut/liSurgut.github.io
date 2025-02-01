@@ -986,38 +986,49 @@ document.addEventListener('DOMContentLoaded', () => {
     const wrap = document.querySelector('.wrap');
     const buttons = wrap.querySelectorAll('button');
 
-    function adjustButtonLayout() {
-        // Сбрасываем предыдущие стили
-        buttons.forEach(button => {
-            button.parentElement.style.flexDirection = 'row';
-            button.parentElement.style.justifyContent = 'center';
-            button.parentElement.style.alignItems = 'center';
-            button.parentElement.style.gap = '10px';
-        });
+    function arrangeButtons() {
+        // Получаем ширину контейнера
+        const wrapWidth = wrap.offsetWidth;
+        
+        // Суммарная ширина всех кнопок
+        const totalButtonsWidth = Array.from(buttons).reduce((sum, button) => sum + button.offsetWidth + 10, 0);
 
-        // Проверяем общую ширину кнопок
-        const containerWidth = wrap.offsetWidth;
-        let totalButtonsWidth = 0;
+        // Контейнер для кнопок
+        const buttonContainer = document.createElement('div');
+        buttonContainer.style.display = 'flex';
+        buttonContainer.style.justifyContent = 'center';
+        buttonContainer.style.alignItems = 'center';
+        buttonContainer.style.flexWrap = 'wrap';
+        buttonContainer.style.gap = '10px';
+        buttonContainer.style.width = '100%';
 
-        buttons.forEach(button => {
-            totalButtonsWidth += button.offsetWidth + 10; // учитываем отступ
-        });
-
-        // Если кнопки не помещаются, располагаем вертикально
-        if (totalButtonsWidth > containerWidth) {
+        // Если кнопки не помещаются - располагаем вертикально
+        if (totalButtonsWidth > wrapWidth) {
+            buttonContainer.style.flexDirection = 'column';
             buttons.forEach(button => {
-                button.parentElement.style.flexDirection = 'column';
-                button.parentElement.style.alignItems = 'center';
+                button.style.width = '100%';
+                button.style.maxWidth = '320px';
+            });
+        } else {
+            // Горизонтальное выстраивание
+            buttonContainer.style.flexDirection = 'row';
+            buttons.forEach(button => {
+                button.style.width = 'auto';
+                button.style.maxWidth = 'none';
             });
         }
+
+        // Очищаем и перестраиваем
+        wrap.innerHTML = '';
+        buttons.forEach(button => buttonContainer.appendChild(button));
+        wrap.appendChild(buttonContainer);
     }
 
-    // Первоначальный вызов
-    adjustButtonLayout();
-
-    // Обработка resize
-    window.addEventListener('resize', adjustButtonLayout);
+    // Первичный вызов и обработка resize
+    arrangeButtons();
+    window.addEventListener('resize', arrangeButtons);
 });
+
 
 
     </script>
