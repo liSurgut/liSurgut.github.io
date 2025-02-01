@@ -39,48 +39,8 @@
 }
 
 @layer demo {
-     .wrap button {
-       background: linear-gradient(light-dark(#d36312, #000) 0 0) padding-box,
-                   linear-gradient(0deg, #d36312 0, var(--border) 18px) border-box,
-                   linear-gradient(in lch longer hue 90deg, var(--base) 0 0) border-box 0 0 / 400% 100%;
-       color: color-mix(in hsl, canvasText, canvas 34%);
-       border-radius: 6px;
-       border: calc(var(--border-width, 2) * 1px) solid #0000;
-       font: inherit;
-       cursor: pointer;
-       outline: none;
-       position: relative;
-       padding: 0;
-       animation: rainbow 12s infinite linear,
-                  rainbow 6s infinite linear var(--state, paused);
-     }
 
-     .wrap button:is(:hover) {
-       --state: running;
-     }
-
-     .wrap button::before {
-       background: linear-gradient(#d36312 0 0), linear-gradient(#d36312 0 0),
-                   linear-gradient(in lch longer hue 90deg, var(--base) 0 0) border-box 0 0 / 400% 100%;
-       transform: translate3d(0, 0, -1px);
-     }
-
-     .wrap button::after {
-       background: linear-gradient(#d36312 0 0) padding-box,
-                   linear-gradient(#d36312 0 0) border-box,
-                   linear-gradient(in lch longer hue 90deg, var(--base) 0 0) border-box 0 0 / 400% 100%;
-       mask: linear-gradient(#0000 0 0), linear-gradient(#fff 0 0);
-       mask-clip: padding-box, border-box;
-       mask-composite: intersect;
-     }
-
-     @keyframes rainbow {
-       to {
-         background-position: 0 0, 0 0, 400% 0;
-       }
-     }
-   }
-  .content {
+   .content {
     padding: 0rem;
     flex: 1;
     display: flex;
@@ -136,6 +96,49 @@
     --color: hsl(0 0% 6%);
     --bg: hsl(0 0% 98%);
   }
+
+   .wrap button {
+       background: linear-gradient(light-dark(#d36312, #000) 0 0) padding-box,
+                   linear-gradient(0deg, #d36312 0, var(--border) 18px) border-box,
+                   linear-gradient(in lch longer hue 90deg, var(--base) 0 0) border-box 0 0 / 400% 100%;
+       color: color-mix(in hsl, canvasText, canvas 34%);
+       border-radius: 6px;
+       border: calc(var(--border-width, 2) * 1px) solid #0000;
+       font: inherit;
+       cursor: pointer;
+       outline: none;
+       position: relative;
+       padding: 0;
+       animation: rainbow 12s infinite linear,
+                  rainbow 6s infinite linear var(--state, paused);
+     }
+
+     .wrap button:is(:hover) {
+       --state: running;
+     }
+
+     .wrap button::before {
+       background: linear-gradient(#d36312 0 0), linear-gradient(#d36312 0 0),
+                   linear-gradient(in lch longer hue 90deg, var(--base) 0 0) border-box 0 0 / 400% 100%;
+       transform: translate3d(0, 0, -1px);
+     }
+
+     .wrap button::after {
+       background: linear-gradient(#d36312 0 0) padding-box,
+                   linear-gradient(#d36312 0 0) border-box,
+                   linear-gradient(in lch longer hue 90deg, var(--base) 0 0) border-box 0 0 / 400% 100%;
+       mask: linear-gradient(#0000 0 0), linear-gradient(#fff 0 0);
+       mask-clip: padding-box, border-box;
+       mask-composite: intersect;
+     }
+
+     @keyframes rainbow {
+       to {
+         background-position: 0 0, 0 0, 400% 0;
+       }
+     }
+   }
+  
 
 @import url('https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap');
 
